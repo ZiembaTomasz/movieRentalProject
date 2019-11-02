@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class MovieService {
-    MovieType movieType;
     MovieMapper movieMapper;
     MovieRepository movieRepository;
 
