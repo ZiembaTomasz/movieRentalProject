@@ -6,6 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import pl.tomasz.project.rental.rental.interfaces.MovieType;
+import pl.tomasz.project.rental.rental.mapper.MovieMapper;
+import pl.tomasz.project.rental.rental.repository.MovieRepository;
 import pl.tomasz.project.rental.rental.service.MovieService;
 
 import static org.junit.Assert.assertEquals;
@@ -19,11 +21,13 @@ public class MovieServiceTest {
     @Test
     public void priceMovieTest(){
         //Given
+        MovieMapper movieMapperMock = mock(MovieMapper.class);
+        MovieRepository movieRepositoryMock = mock(MovieRepository.class);
         MovieType movieType = MovieType.NEW_MOVIE;
-        MovieService movieServiceMock = mock(MovieService.class);
+        MovieService movieService = new MovieService(movieMapperMock, movieRepositoryMock);
         int price;
         //When
-        price = movieServiceMock.priceOfMovie(movieType, 3);
+        price = movieService.priceOfMovie(movieType, 3);
         //Then
         assertEquals(price, 20);
 

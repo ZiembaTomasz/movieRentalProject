@@ -9,6 +9,7 @@ import pl.tomasz.project.rental.rental.interfaces.MovieType;
 @NoArgsConstructor
 @Data
 public class MovieDto {
+    private String title;
     private MovieType movieType;
     private int days;
 }
