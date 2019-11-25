@@ -12,12 +12,10 @@ import java.util.stream.Collectors;
 @Component
 public class MovieMapper {
     public Movie mapToMovie(MovieDto movieDto){
-        return new Movie(movieDto.getTitle(),movieDto.getMovieType(),
-                movieDto.getDays());
+        return new Movie(movieDto.getId(), movieDto.getTitle(),movieDto.getMovieType());
     }
     public MovieDto mapToMovieDto(Movie movie){
-        return new MovieDto(movie.getTitle(), movie.getMovieType(),
-                movie.getDays());
+        return new MovieDto(movie.getId(), movie.getTitle(), movie.getMovieType());
     }
     public List<MovieDto>mapToMovieDtoList(List<Movie>movieList){
         return movieList.stream()

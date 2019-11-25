@@ -9,6 +9,6 @@ import java.util.Date;
 public class RentedMoviesDto {
     private Long userId;
     private Long movieId;
-    LocalDateTime dateOfRent;
-   LocalDateTime returnedDate;
+    private LocalDateTime dateOfRent;
+    private LocalDateTime returnedDate;
 }
