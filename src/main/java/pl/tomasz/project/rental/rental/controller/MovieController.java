@@ -1,14 +1,10 @@
 package pl.tomasz.project.rental.rental.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import pl.tomasz.project.rental.rental.domain.Movie;
 import pl.tomasz.project.rental.rental.domain.RentedMovies;
-import pl.tomasz.project.rental.rental.domain.User;
 import pl.tomasz.project.rental.rental.domain.MovieDto;
 import pl.tomasz.project.rental.rental.interfaces.MovieType;
 import pl.tomasz.project.rental.rental.service.MovieService;
@@ -34,11 +30,11 @@ public class MovieController {
     }
     @RequestMapping(method = RequestMethod.POST, value = "/movie/{movieId}/rent/{userId}")
     public String rentMovie(Long movieId, Long userId, Date dateOfRent){
-        return movieService.rentMovie(movieId, userId, dateOfRent);
+        return movieService.rentMovie(movieId, userId);
     }
     @RequestMapping(method = RequestMethod.PUT, value = "/movie/{movieId}/return/{userID}")
-    public String returnMovie(Long movieIdm, Long userId){
-        return null;
+    public void returnMovie(Long movieId, Long userId){
+         movieService.returnMovie(movieId, userId);
     }
     @RequestMapping(method = RequestMethod.GET, value = "getRentedList")
     public List<RentedMovies>getRentedMovies(){

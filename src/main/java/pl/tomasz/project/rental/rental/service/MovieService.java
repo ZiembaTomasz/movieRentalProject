@@ -65,5 +65,13 @@ public class MovieService {
         rentedMoviesRepository.save(rentedMovies);
         return user.getFirstName() + user.getSecondName() + "rented" + movie.getTitle();
     }
+    public void returnMovie(Long movieId, Long userId){
+        User user = userRepository.getOne(userId);
+        Movie movie = movieRepository.getOne(movieId);
+        RentedMovies rentedMovies = new RentedMovies();
+        if (rentedMovies.getMovieId().equals(movieId) && rentedMovies.getUserId().equals(userId))
+            rentedMovies.setReturnedDate(LocalDateTime.now());
+        rentedMoviesRepository.save(rentedMovies);
+    }
 }
 
