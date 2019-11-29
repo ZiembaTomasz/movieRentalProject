@@ -1,7 +1,7 @@
 package pl.tomasz.project.rental.rental.service;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 import pl.tomasz.project.rental.rental.domain.Movie;
 import pl.tomasz.project.rental.rental.domain.MovieDto;
@@ -13,13 +13,12 @@ import pl.tomasz.project.rental.rental.repository.MovieRepository;
 import pl.tomasz.project.rental.rental.repository.RentedMoviesRepository;
 import pl.tomasz.project.rental.rental.repository.UserRepository;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
-@Getter
+@Data
 @AllArgsConstructor
 public class MovieService {
     MovieMapper movieMapper;
