@@ -1,4 +1,6 @@
 package pl.tomasz.project.rental.rental.repository;
 
-public interface UserRatingRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRatingRepository extends JpaRepository<UserRatingRepository, Long> {
 }

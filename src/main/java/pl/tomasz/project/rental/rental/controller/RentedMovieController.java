@@ -28,4 +28,8 @@ public class RentedMovieController {
     public int getNumberOfRentedMovies(Long userId){
        return rentedMovieService.countRentedMovies(userId);
     }
+    @RequestMapping(method = RequestMethod.GET, value = "getRatingOfMovie")
+    public double getRating(Long movieId){
+        return 0;
+    }
 }
