@@ -5,10 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pl.tomasz.project.rental.rental.domain.MovieDto;
-import pl.tomasz.project.rental.rental.domain.RentedMoviesDto;
 import pl.tomasz.project.rental.rental.interfaces.MovieType;
 import pl.tomasz.project.rental.rental.service.MovieService;
-import pl.tomasz.project.rental.rental.service.RentedMovieService;
+
 
 import java.util.Date;
 import java.util.List;
@@ -36,5 +35,9 @@ public class MovieController {
     @RequestMapping(method = RequestMethod.PUT, value = "/movie/{movieId}/return/{userID}")
     public void returnMovie(Long movieId, Long userId){
          movieService.returnMovie(movieId, userId);
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "getMoviesByCategories")
+    public List<MovieDto>getMoviesByCategories(String category){
+        return movieService.getMoviesByCategorie(category);
     }
 }

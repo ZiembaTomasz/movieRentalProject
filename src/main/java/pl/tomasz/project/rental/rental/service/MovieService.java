@@ -12,10 +12,9 @@ import pl.tomasz.project.rental.rental.mapper.MovieMapper;
 import pl.tomasz.project.rental.rental.repository.MovieRepository;
 import pl.tomasz.project.rental.rental.repository.RentedMoviesRepository;
 import pl.tomasz.project.rental.rental.repository.UserRepository;
-
-
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Data
@@ -71,6 +70,12 @@ public class MovieService {
         if (rentedMovies.getMovieId().equals(movieId) && rentedMovies.getUserId().equals(userId))
             rentedMovies.setReturnedDate(LocalDateTime.now());
         rentedMoviesRepository.save(rentedMovies);
+    }
+    public List<MovieDto> getMoviesByCategorie(String category){
+        List<MovieDto>moviesList = getAllMovies();
+        return moviesList.stream()
+                .filter(t -> t.getCategory().equals(category))
+                .collect(Collectors.toList());
     }
 }
 

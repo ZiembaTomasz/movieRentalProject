@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.tomasz.project.rental.rental.interfaces.MovieType;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,4 +22,18 @@ public class Movie {
     @Column
     @NotNull
     private MovieType movieType;
+    @Column
+    @NotNull
+    private String category;
+    @OneToMany(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(name = "cmovieId")
+    private List<UserRating>userRating;
+
+    public double ratingAverage() {
+        return userRating.stream()
+                .map(t -> t.getRate())
+                .reduce(0, (sum, current) -> sum += current) * 1.0 / userRating.size();
+    }
 }
