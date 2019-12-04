@@ -25,10 +25,13 @@ public class Movie {
     @Column
     @NotNull
     private String category;
+    @Column
+    @NotNull
+    private int yearOfProduction;
     @OneToMany(
             cascade = CascadeType.ALL
     )
-    @JoinColumn(name = "cmovieId")
+    @JoinColumn(name = "movieId")
     private List<UserRating>userRating;
 
     public double ratingAverage() {

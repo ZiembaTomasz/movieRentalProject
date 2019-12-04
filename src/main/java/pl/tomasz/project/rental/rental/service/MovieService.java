@@ -77,5 +77,11 @@ public class MovieService {
                 .filter(t -> t.getCategory().equals(category))
                 .collect(Collectors.toList());
     }
+    public List<MovieDto> getMovieByYear(int year){
+        List<MovieDto>moviesList = getAllMovies();
+        return moviesList.stream()
+                .filter(t -> t.getYearOfProduction() == year )
+                .collect(Collectors.toList());
+    }
 }
 

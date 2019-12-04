@@ -40,4 +40,8 @@ public class MovieController {
     public List<MovieDto>getMoviesByCategories(String category){
         return movieService.getMoviesByCategorie(category);
     }
+    @RequestMapping(method = RequestMethod.GET, value = "getMoviesByYear")
+    public List<MovieDto>getMoviesByYear(int year){
+        return movieService.getMovieByYear(year);
+    }
 }
