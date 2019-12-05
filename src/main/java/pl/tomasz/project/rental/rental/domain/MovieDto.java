@@ -15,5 +15,6 @@ public class MovieDto {
     private MovieType movieType;
     private String category;
     private int yearOfProduction;
+    private boolean under18;
     private List<UserRating>userRatings;
 }

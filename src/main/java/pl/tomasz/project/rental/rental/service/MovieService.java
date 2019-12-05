@@ -2,6 +2,7 @@ package pl.tomasz.project.rental.rental.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.validator.internal.util.Contracts;
 import org.springframework.stereotype.Service;
 import pl.tomasz.project.rental.rental.domain.Movie;
 import pl.tomasz.project.rental.rental.domain.MovieDto;
@@ -82,6 +83,13 @@ public class MovieService {
         return moviesList.stream()
                 .filter(t -> t.getYearOfProduction() == year )
                 .collect(Collectors.toList());
+    }
+    public MovieDto updateMovie(MovieDto movieDto){
+
+        Contracts.assertNotNull(movieDto.getId(), "Cannot update with no ID");
+        Movie movie = movieMapper.mapToMovie(movieDto);
+        movieRepository.save(movie);
+        return movieMapper.mapToMovieDto(movie);
     }
 }
 

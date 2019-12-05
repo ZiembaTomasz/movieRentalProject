@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 public class MovieMapper {
     public Movie mapToMovie(MovieDto movieDto){
         return new Movie(movieDto.getId(), movieDto.getTitle(),movieDto.getMovieType(),
-                movieDto.getCategory(), movieDto.getYearOfProduction(), movieDto.getUserRatings());
+                movieDto.getCategory(), movieDto.getYearOfProduction(), movieDto.isUnder18(), movieDto.getUserRatings());
     }
     public MovieDto mapToMovieDto(Movie movie){
         return new MovieDto(movie.getId(), movie.getTitle(), movie.getMovieType(),
-                movie.getCategory(), movie.getYearOfProduction(), movie.getUserRating());
+                movie.getCategory(), movie.getYearOfProduction(), movie.isUnder18(), movie.getUserRating());
     }
     public List<MovieDto>mapToMovieDtoList(List<Movie>movieList){
         return movieList.stream()

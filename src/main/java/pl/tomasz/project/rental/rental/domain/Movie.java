@@ -28,6 +28,9 @@ public class Movie {
     @Column
     @NotNull
     private int yearOfProduction;
+    @Column
+    @NotNull
+    private boolean under18;
     @OneToMany(
             cascade = CascadeType.ALL
     )

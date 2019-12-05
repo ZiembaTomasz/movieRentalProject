@@ -1,6 +1,7 @@
 package pl.tomasz.project.rental.rental.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,5 +44,10 @@ public class MovieController {
     @RequestMapping(method = RequestMethod.GET, value = "getMoviesByYear")
     public List<MovieDto>getMoviesByYear(int year){
         return movieService.getMovieByYear(year);
+    }
+    @RequestMapping(method = RequestMethod.PUT, value = "updateMovie")
+    public MovieDto updateMovie(@RequestBody MovieDto movieDto){
+        return movieService.updateMovie(movieDto);
+
     }
 }
