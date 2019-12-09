@@ -48,6 +48,9 @@ public class MovieController {
     @RequestMapping(method = RequestMethod.PUT, value = "updateMovie")
     public MovieDto updateMovie(@RequestBody MovieDto movieDto){
         return movieService.updateMovie(movieDto);
-
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "getAgeRestriction")
+    public boolean getAgeRestriction(Long movieId){
+        return movieService.checkAgeRestriction(movieId);
     }
 }

@@ -91,5 +91,9 @@ public class MovieService {
         movieRepository.save(movie);
         return movieMapper.mapToMovieDto(movie);
     }
+    public boolean checkAgeRestriction(Long movieId){
+        Movie movie = movieRepository.getOne(movieId);
+        return movie.isUnder18();
+    }
 }
 
