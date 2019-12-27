@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.tomasz.project.rental.rental.interfaces.MovieType;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -35,7 +36,7 @@ public class Movie {
             cascade = CascadeType.ALL
     )
     @JoinColumn(name = "movieId")
-    private List<UserRating>userRating;
+    private List<UserRating> userRating;
 
     public double ratingAverage() {
         return userRating.stream()

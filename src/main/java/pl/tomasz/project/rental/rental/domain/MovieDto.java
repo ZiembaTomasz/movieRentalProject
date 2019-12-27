@@ -1,4 +1,5 @@
 package pl.tomasz.project.rental.rental.domain;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,5 @@ public class MovieDto {
     private String category;
     private int yearOfProduction;
     private boolean under18;
-    private List<UserRating>userRatings;
+    private List<UserRating> userRatings;
 }

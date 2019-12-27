@@ -2,6 +2,7 @@ package pl.tomasz.project.rental.rental.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.internal.util.Contracts;
 import org.springframework.stereotype.Service;
 import pl.tomasz.project.rental.rental.domain.Movie;
@@ -13,6 +14,7 @@ import pl.tomasz.project.rental.rental.mapper.MovieMapper;
 import pl.tomasz.project.rental.rental.repository.MovieRepository;
 import pl.tomasz.project.rental.rental.repository.RentedMoviesRepository;
 import pl.tomasz.project.rental.rental.repository.UserRepository;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class MovieService {
     MovieMapper movieMapper;
     MovieRepository movieRepository;
@@ -64,7 +67,8 @@ public class MovieService {
         rentedMoviesRepository.save(rentedMovies);
         return user.getFirstName() + user.getSecondName() + "rented" + movie.getTitle();
     }
-    public void returnMovie(Long movieId, Long userId){
+
+    public void returnMovie(Long movieId, Long userId) {
         User user = userRepository.getOne(userId);
         Movie movie = movieRepository.getOne(movieId);
         RentedMovies rentedMovies = new RentedMovies();
@@ -72,28 +76,37 @@ public class MovieService {
             rentedMovies.setReturnedDate(LocalDateTime.now());
         rentedMoviesRepository.save(rentedMovies);
     }
-    public List<MovieDto> getMoviesByCategorie(String category){
-        List<MovieDto>moviesList = getAllMovies();
+
+    public List<MovieDto> getMoviesByCategorie(String category) {
+        List<MovieDto> moviesList = getAllMovies();
         return moviesList.stream()
                 .filter(t -> t.getCategory().equals(category))
                 .collect(Collectors.toList());
     }
-    public List<MovieDto> getMovieByYear(int year){
-        List<MovieDto>moviesList = getAllMovies();
+
+    public List<MovieDto> getMovieByYear(int year) {
+        List<MovieDto> moviesList = getAllMovies();
         return moviesList.stream()
-                .filter(t -> t.getYearOfProduction() == year )
+                .filter(t -> t.getYearOfProduction() == year)
                 .collect(Collectors.toList());
     }
-    public MovieDto updateMovie(MovieDto movieDto){
+
+    public MovieDto updateMovie(MovieDto movieDto) {
 
         Contracts.assertNotNull(movieDto.getId(), "Cannot update with no ID");
         Movie movie = movieMapper.mapToMovie(movieDto);
         movieRepository.save(movie);
         return movieMapper.mapToMovieDto(movie);
     }
-    public boolean checkAgeRestriction(Long movieId){
+
+    public boolean checkAgeRestriction(Long movieId) {
         Movie movie = movieRepository.getOne(movieId);
         return movie.isUnder18();
+    }
+
+    public List<MovieDto> findMovieByWord(String word) {
+        List<Movie> moviesList = movieRepository.findByNameLike(word + "%");
+        return movieMapper.mapToMovieDtoList(moviesList);
     }
 }
 

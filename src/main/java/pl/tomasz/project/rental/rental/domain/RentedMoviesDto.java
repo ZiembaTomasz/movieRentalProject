@@ -2,6 +2,7 @@ package pl.tomasz.project.rental.rental.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 
 @Data
