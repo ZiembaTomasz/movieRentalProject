@@ -1,6 +1,8 @@
 package pl.tomasz.project.rental.rental.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,6 +10,8 @@ import java.util.Date;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -20,5 +24,5 @@ public class User {
 
     @Column
     @NotNull
-    private Date birthDate;
+    private Date accountNumber;
 }
