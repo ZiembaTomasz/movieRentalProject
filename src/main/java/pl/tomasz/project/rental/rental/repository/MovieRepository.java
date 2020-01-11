@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Movie> findByNameLike(String name);
+    Long findMovieByMovieId(Long movieId);
 }

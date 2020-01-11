@@ -3,6 +3,7 @@ package pl.tomasz.project.rental.rental;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import pl.tomasz.project.rental.rental.domain.Movie;
@@ -15,12 +16,11 @@ import pl.tomasz.project.rental.rental.repository.RentedMoviesRepository;
 import pl.tomasz.project.rental.rental.repository.UserRepository;
 import pl.tomasz.project.rental.rental.service.MovieService;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 public class MovieServiceTest {
@@ -47,16 +47,44 @@ public class MovieServiceTest {
 
     }
     @Test
-    public void shouldRentMovie(){
-        ArrayList<UserRating>userRatings = new ArrayList<>();
-
-        User user = new User("Jack", "Sparrow", new Date(15, 06, 1988));
-        Movie movie = new Movie( 1L, "Mohawk", MovieType.NEW_MOVIE, "action",
+    public void shouldRentMovie() {
+        MovieMapper movieMapperMock = mock(MovieMapper.class);
+        MovieRepository movieRepositoryMock = mock(MovieRepository.class);
+        UserRepository userRepositoryMock = mock(UserRepository.class);
+        RentedMoviesRepository rentedMoviesRepositoryMock = mock(RentedMoviesRepository.class);
+        ArrayList<UserRating> userRatings = new ArrayList<>();
+        Date date = new GregorianCalendar(1988, 06, 15).getGregorianChange();
+        User user = new User("Jack", "Sparrow", date);
+        Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
                 2018, true, userRatings);
-        userRepository.save(user);
-        movieRepository.save(movie);
-        userRepository.getOne(1L).equals(user.)
+        when(movieRepositoryMock.getOne(1L)).thenReturn(movie);
+        when(userRepositoryMock.getOne(1L)).thenReturn(user);
 
-
-
+        Long userId = userRepositoryMock.findUserByDate(date);
+        Long movieId = movieRepositoryMock.findMovieByMovieId(1L);
+        MovieService movieService = new MovieService(movieMapperMock, movieRepositoryMock, userRepositoryMock,
+                rentedMoviesRepositoryMock);
+        String text = movieService.rentMovie(1l, 1l);
+        assertEquals(text, "Jack Sparrow rented Mohawk");
+    }
+    @Test
+    public void shouldFindMovieByWord(){
+        MovieMapper movieMapperMock = mock(MovieMapper.class);
+        MovieRepository movieRepositoryMock = mock(MovieRepository.class);
+        UserRepository userRepositoryMock = mock(UserRepository.class);
+        RentedMoviesRepository rentedMoviesRepositoryMock = mock(RentedMoviesRepository.class);
+        List<UserRating> userRatings = new ArrayList<>();
+        Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
+                2018, true, userRatings);
+        Movie movie1 = new Movie(2L, "Mohcak", MovieType.OLD_MOVIE, "horror",
+                1990, false, userRatings);
+        ArrayList<Movie> movies = new ArrayList<>();
+        movies.add(movie);
+        movies.add(movie1);
+        when(movieRepositoryMock.findByNameLike("Moh")).thenReturn(movies);
+        MovieService movieService = new MovieService(movieMapperMock, movieRepositoryMock, userRepositoryMock,
+                rentedMoviesRepositoryMock);
+        int quantityOfMovies = movies.size();
+        assertEquals(2, quantityOfMovies );
+    }
 }

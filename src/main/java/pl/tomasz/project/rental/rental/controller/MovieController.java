@@ -1,10 +1,7 @@
 package pl.tomasz.project.rental.rental.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.tomasz.project.rental.rental.domain.MovieDto;
 import pl.tomasz.project.rental.rental.interfaces.MovieType;
 import pl.tomasz.project.rental.rental.service.MovieService;
@@ -36,7 +33,7 @@ public class MovieController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/movie/{movieId}/return/{userID}")
-    public void returnMovie(Long movieId, Long userId) {
+    public void returnMovie(@PathVariable Long movieId, Long userId, Long assdf) {
         movieService.returnMovie(movieId, userId);
     }
 

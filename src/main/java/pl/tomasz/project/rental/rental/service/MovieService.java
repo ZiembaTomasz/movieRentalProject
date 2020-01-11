@@ -58,14 +58,14 @@ public class MovieService {
     }
 
     public String rentMovie(Long movieId, Long userId) {
-
         User user = userRepository.getOne(userId);
         Movie movie = movieRepository.getOne(movieId);
         RentedMovies rentedMovies = new RentedMovies();
-        if (rentedMovies.getMovieId().equals(movieId) && rentedMovies.getUserId().equals(userId))
-            rentedMovies.setDateOfRent(LocalDateTime.now());
+        rentedMovies.setMovieId(movieId);
+        rentedMovies.setUserId(userId);
+        rentedMovies.setDateOfRent(LocalDateTime.now());
         rentedMoviesRepository.save(rentedMovies);
-        return user.getFirstName() + user.getSecondName() + "rented" + movie.getTitle();
+        return user.getFirstName() + " " + user.getSecondName() + " rented " + movie.getTitle();
     }
 
     public void returnMovie(Long movieId, Long userId) {
