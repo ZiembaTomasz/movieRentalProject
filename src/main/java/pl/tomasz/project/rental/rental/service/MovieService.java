@@ -78,15 +78,17 @@ public class MovieService {
     }
 
     public List<MovieDto> getMoviesByCategorie(String category) {
-        List<MovieDto> moviesList = getAllMovies();
-        return moviesList.stream()
+        List<Movie> moviesList = movieRepository.findAll();
+        List<MovieDto> movieDtoList = movieMapper.mapToMovieDtoList(moviesList);
+        return movieDtoList.stream()
                 .filter(t -> t.getCategory().equals(category))
                 .collect(Collectors.toList());
     }
 
     public List<MovieDto> getMovieByYear(int year) {
-        List<MovieDto> moviesList = getAllMovies();
-        return moviesList.stream()
+        List<Movie> moviesList = movieRepository.findAll();
+        List<MovieDto> movieDtoList = movieMapper.mapToMovieDtoList(moviesList);
+        return movieDtoList.stream()
                 .filter(t -> t.getYearOfProduction() == year)
                 .collect(Collectors.toList());
     }
@@ -94,6 +96,7 @@ public class MovieService {
     public MovieDto updateMovie(MovieDto movieDto) {
 
         Contracts.assertNotNull(movieDto.getId(), "Cannot update with no ID");
+        Contracts.assertNotNull(movieRepository.findById(movieDto.getId()), "Movie with that IP doesnt exist");
         Movie movie = movieMapper.mapToMovie(movieDto);
         movieRepository.save(movie);
         return movieMapper.mapToMovieDto(movie);
