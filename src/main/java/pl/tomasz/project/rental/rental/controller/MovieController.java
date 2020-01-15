@@ -28,12 +28,12 @@ public class MovieController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/movie/{movieId}/rent/{userId}")
-    public String rentMovie(Long movieId, Long userId, Date dateOfRent) {
+    public String rentMovie(Long movieId, Long userId) {
         return movieService.rentMovie(movieId, userId);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/movie/{movieId}/return/{userID}")
-    public void returnMovie(@PathVariable Long movieId, Long userId, Long assdf) {
+    public void returnMovie(@PathVariable Long movieId, Long userId) {
         movieService.returnMovie(movieId, userId);
     }
 

@@ -11,7 +11,7 @@ import pl.tomasz.project.rental.rental.mapper.RentedMovieMapper;
 import pl.tomasz.project.rental.rental.repository.RentedMoviesRepository;
 import pl.tomasz.project.rental.rental.repository.UserRepository;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Service
@@ -27,12 +27,7 @@ public class RentedMovieService {
     }
     public int countRentedMovies(Long userId){
         int numberOfRentedMovies = 0;
-        User user = userRepository.getOne(userId);
-        List<RentedMovies>rentedMoviesList = new ArrayList<>();
-        if (rentedMoviesList.contains(user)){
-            numberOfRentedMovies = rentedMoviesList.size();
-        }
-        return numberOfRentedMovies;
-
+        List<RentedMovies>rentedMoviesList = rentedMoviesRepository.findMovieByUserId(userId);
+        return rentedMoviesList.size();
     }
 }

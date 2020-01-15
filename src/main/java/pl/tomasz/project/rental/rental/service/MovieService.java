@@ -68,13 +68,15 @@ public class MovieService {
         return user.getFirstName() + " " + user.getSecondName() + " rented " + movie.getTitle();
     }
 
-    public void returnMovie(Long movieId, Long userId) {
+    public String returnMovie(Long movieId, Long userId) {
         User user = userRepository.getOne(userId);
         Movie movie = movieRepository.getOne(movieId);
         RentedMovies rentedMovies = new RentedMovies();
-        if (rentedMovies.getMovieId().equals(movieId) && rentedMovies.getUserId().equals(userId))
-            rentedMovies.setReturnedDate(LocalDateTime.now());
+        rentedMovies.setMovieId(movieId);
+        rentedMovies.setUserId(userId);
+        rentedMovies.setReturnedDate(LocalDateTime.now());
         rentedMoviesRepository.save(rentedMovies);
+        return user.getFirstName() + " " + user.getSecondName() + " returned " + movie.getTitle();
     }
 
     public List<MovieDto> getMoviesByCategorie(String category) {
@@ -108,7 +110,7 @@ public class MovieService {
     }
 
     public List<MovieDto> findMovieByWord(String word) {
-        List<Movie> moviesList = movieRepository.findByNameLike(word + "%");
+        List<Movie> moviesList = movieRepository.findByTitleLike(word + "%");
         return movieMapper.mapToMovieDtoList(moviesList);
     }
 }

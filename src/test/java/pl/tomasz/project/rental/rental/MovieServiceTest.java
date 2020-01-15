@@ -1,5 +1,6 @@
 package pl.tomasz.project.rental.rental;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -32,47 +33,72 @@ public class MovieServiceTest {
     MovieRepository movieRepository;
     @Mock
     RentedMoviesRepository rentedMoviesRepository;
-    @Mock
-    MovieMapper movieMapper;
 
-    @Test
-    public void priceMovieTest(){
-        //Given
-
-        MovieType movieType = MovieType.NEW_MOVIE;
-        MovieService movieService = new MovieService(movieMapper, movieRepository, userRepository,
+    MovieMapper movieMapper = new MovieMapper();
+    @Before
+    public void createMovieServiceObject(){
+        movieService = new MovieService(movieMapper, movieRepository, userRepository,
                 rentedMoviesRepository);
-        int price;
+    }
+    @Test
+    public void priceOfNewMovieTest(){
+        //Given
+        MovieType movieTypeNew = MovieType.NEW_MOVIE;
+        int priceOfNew1;
+        int priceOfNew2;
         //When
-        price = movieService.priceOfMovie(movieType, 3);
+        priceOfNew1 = movieService.priceOfMovie(movieTypeNew, 3);
+        priceOfNew2 = movieService.priceOfMovie(movieTypeNew, 5);
         //Then
-        assertEquals(price, 20);
-
+        assertEquals(priceOfNew1, 20);
+        assertEquals(priceOfNew2, 40);
+    }
+    @Test
+    public void priceOfBasicMovieTest(){
+        //Given
+        MovieType movieTypeBasic = MovieType.BASIC_MOVIE;
+        int priceOfBasic1;
+        int priceOfBasic2;
+        //When
+        priceOfBasic1 = movieService.priceOfMovie(movieTypeBasic, 3);
+        priceOfBasic2 = movieService.priceOfMovie(movieTypeBasic, 5);
+        //Then
+        assertEquals(priceOfBasic1, 15);
+        assertEquals(priceOfBasic2, 30);
+    }
+    @Test
+    public void priceOfOldMovieTest(){
+        //Given
+        MovieType movieTypeOld = MovieType.OLD_MOVIE;
+        int priceOfOld1;
+        int priceOfOld2;
+        //When
+        priceOfOld1 = movieService.priceOfMovie(movieTypeOld, 3);
+        priceOfOld2 = movieService.priceOfMovie(movieTypeOld, 5);
+        //Then
+        assertEquals(priceOfOld1, 10);
+        assertEquals(priceOfOld2, 20);
     }
     @Test
     public void shouldRentMovie() {
         //Given
         ArrayList<UserRating> userRatings = new ArrayList<>();
         Date date = new GregorianCalendar(1988, 06, 15).getGregorianChange();
-        User user = new User("Jack", "Sparrow", date);
+        User user = new User("Jack", "Sparrow", 1);
         Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
                 2018, true, userRatings);
         when(movieRepository.getOne(1L)).thenReturn(movie);
         when(userRepository.getOne(1L)).thenReturn(user);
-
-        Long userId = userRepository.findUserByDate(date);
-        Long movieId = movieRepository.findMovieByMovieId(1L);
         MovieService movieService = new MovieService(movieMapper, movieRepository, userRepository,
                 rentedMoviesRepository);
         //|When
-        String text = movieService.rentMovie(1l, 1l);
+        String text = movieService.rentMovie(1L, 1L);
         //Then
         assertEquals(text, "Jack Sparrow rented Mohawk");
     }
     @Test
     public void shouldFindMovieByWord(){
         //Given
-        MovieMapper movieMapper = new MovieMapper();
         List<UserRating> userRatings = new ArrayList<>();
         Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
                 2018, true, userRatings);
@@ -81,9 +107,7 @@ public class MovieServiceTest {
         ArrayList<Movie> movies = new ArrayList<>();
         movies.add(movie);
         movies.add(movie1);
-        when(movieRepository.findByNameLike("Moh%")).thenReturn(movies);
-        MovieService movieService = new MovieService(movieMapper, movieRepository, userRepository,
-                rentedMoviesRepository);
+        when(movieRepository.findByTitleLike("Moh%")).thenReturn(movies);
         //When
         List<MovieDto>quantity = movieService.findMovieByWord("Moh");
         int quantityOfMovies = quantity.size();
@@ -93,12 +117,9 @@ public class MovieServiceTest {
     @Test
     public void shouldCheckAgeRestriction(){
         //Given
-        MovieMapper movieMapper = new MovieMapper();
         List<UserRating>userRatings = new ArrayList<>();
         Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
                 2018, true, userRatings);
-        MovieService movieService = new MovieService(movieMapper, movieRepository, userRepository,
-                rentedMoviesRepository);
         when(movieRepository.getOne(1L)).thenReturn(movie);
         //When
         boolean result = movieService.checkAgeRestriction(1L);
@@ -108,34 +129,26 @@ public class MovieServiceTest {
     @Test
     public void shouldUpdateMovie(){
         //Given
-        MovieMapper movieMapper = new MovieMapper();
         List<UserRating>userRatings = new ArrayList<>();
         MovieDto movieDto = new MovieDto(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
                 2018, true, userRatings);
-        MovieService movieService = new MovieService(movieMapper, movieRepository, userRepository,
-                rentedMoviesRepository);
         //When
         MovieDto resultMovie = movieService.updateMovie(movieDto);
         //Then
         assertEquals(movieDto, resultMovie);
-
     }
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionGivenNullMovieId(){
         //Given
-        MovieMapper movieMapper = new MovieMapper();
         List<UserRating>userRatings = new ArrayList<>();
         MovieDto movieDto1 = new MovieDto(null, "Mohawk", MovieType.NEW_MOVIE, "action",
                 2018, true, userRatings);
-        MovieService movieService = new MovieService(movieMapper, movieRepository, userRepository,
-                rentedMoviesRepository);
         //When
         movieService.updateMovie(movieDto1);
     }
     @Test
     public void shouldgetMovieByYear(){
         //Given
-        MovieMapper movieMapper = new MovieMapper();
         List<MovieDto>movieDtoList = new ArrayList<>();
         List<UserRating>userRatings = new ArrayList<>();
         Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
@@ -146,8 +159,6 @@ public class MovieServiceTest {
         movieList.add(movie);
         movieList.add(movie1);
         when(movieRepository.findAll()).thenReturn(movieList);
-        MovieService movieService = new MovieService(movieMapper, movieRepository, userRepository,
-                rentedMoviesRepository);
         //When
         List<MovieDto>myChoosenYearList = movieService.getMovieByYear(2018);
         //Then
@@ -156,8 +167,6 @@ public class MovieServiceTest {
     @Test
     public void shouldGetMoviesByCategorie(){
         //Given
-        MovieMapper movieMapper = new MovieMapper();
-        List<MovieDto>movieDtoList = new ArrayList<>();
         List<UserRating>userRatings = new ArrayList<>();
         Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
                 2018, true, userRatings);
@@ -173,5 +182,34 @@ public class MovieServiceTest {
         List<MovieDto>myChoosenCategorie = movieService.getMoviesByCategorie("horror");
         //Then
         assertEquals(1, myChoosenCategorie.size());
+    }
+    @Test
+    public void shouldReturnMovie(){
+        //Given
+        ArrayList<UserRating> userRatings = new ArrayList<>();
+        Date date = new GregorianCalendar(1988, 06, 15).getGregorianChange();
+        User user = new User("Jack", "Sparrow", 1);
+        Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
+                2018, true, userRatings);
+        when(movieRepository.getOne(1L)).thenReturn(movie);
+        when(userRepository.getOne(1L)).thenReturn(user);
+        //When
+        String text = movieService.returnMovie(1L,1L );
+        //Then
+        assertEquals(text, "Jack Sparrow returned Mohawk");
+    }
+    @Test
+    public void shouldGetAllMovies(){
+        //Given
+        List<Movie>movies = new ArrayList<>();
+        List<UserRating>userRatings = new ArrayList<>();
+        Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
+                2018, true, userRatings);
+        movies.add(movie);
+        when(movieRepository.findAll()).thenReturn(movies);
+        //When
+        List<MovieDto>myMovies = movieService.getAllMovies();
+        //Then
+        assertEquals(1, myMovies.size());
     }
 }

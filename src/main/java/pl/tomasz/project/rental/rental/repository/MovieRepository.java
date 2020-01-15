@@ -6,6 +6,5 @@ import pl.tomasz.project.rental.rental.domain.Movie;
 import java.util.List;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
-    List<Movie> findByNameLike(String name);
-    Long findMovieByMovieId(Long movieId);
+    List<Movie> findByTitleLike(String name);
 }

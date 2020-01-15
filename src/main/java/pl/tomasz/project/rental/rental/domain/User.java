@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+
 
 @Data
 @Entity
@@ -24,5 +24,5 @@ public class User {
 
     @Column
     @NotNull
-    private Date accountNumber;
+    private int accountNumber;
 }
