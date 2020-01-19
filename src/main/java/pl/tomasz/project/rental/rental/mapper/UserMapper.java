@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 @Component
 public class UserMapper {
     public User mapToUser(UserDto userDto){
-        return new User(userDto.getFirstName(), userDto.getSecondName(), userDto.getAccountNumber());
+        return new User(userDto.getId(), userDto.getFirstName(), userDto.getSecondName(), userDto.getAccountNumber());
     }
     public UserDto mapToUserDto(User user){
-        return new UserDto(user.getSecondName(), user.getSecondName(), user.getAccountNumber());
+        return new UserDto(user.getId(), user.getSecondName(), user.getSecondName(), user.getAccountNumber());
     }
     public List<UserDto> mapToUserDtoList(List<User>userList){
         return userList.stream()

@@ -1,6 +1,6 @@
 ~~~~Movie Rental Project~~~~
 
-Backend and REST application uses Database(MySQL) and Spring Boot
+Backend and REST application uses Database(MySQL) and Spring Boot.
 
 - renting and returning
 movies

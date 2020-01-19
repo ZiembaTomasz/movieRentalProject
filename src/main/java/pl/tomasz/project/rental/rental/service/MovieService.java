@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.internal.util.Contracts;
 import org.springframework.stereotype.Service;
+import pl.tomasz.project.rental.rental.controller.MovieNotFoundException;
 import pl.tomasz.project.rental.rental.domain.Movie;
 import pl.tomasz.project.rental.rental.domain.MovieDto;
 import pl.tomasz.project.rental.rental.domain.RentedMovies;
@@ -22,7 +23,6 @@ import java.util.stream.Collectors;
 @Service
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class MovieService {
     MovieMapper movieMapper;
     MovieRepository movieRepository;
@@ -53,13 +53,22 @@ public class MovieService {
         return 0;
     }
 
-    public List<MovieDto> getAllMovies() {
+    public List<MovieDto> getAllMovies(){
         return movieMapper.mapToMovieDtoList(movieRepository.findAll());
+    }
+    public MovieDto getMovieById(Long movieId)throws MovieNotFoundException{
+        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieNotFoundException::new);
+        MovieDto movieDto = movieMapper.mapToMovieDto(movie);
+        return movieDto;
     }
 
     public String rentMovie(Long movieId, Long userId) {
-        User user = userRepository.getOne(userId);
-        Movie movie = movieRepository.getOne(movieId);
+        Contracts.assertNotNull(movieId, "Movie with that Id doesnt exist");
+        Contracts.assertNotNull(userId, "User with that Id doesnt exist");
+        User user = userRepository.findById(userId).orElse(null);
+        Movie movie = movieRepository.findById(movieId).orElse(null);
+        Contracts.assertNotNull(movie, "Movie doesnt exist");
+        Contracts.assertNotNull(user,"User doesnt exist");
         RentedMovies rentedMovies = new RentedMovies();
         rentedMovies.setMovieId(movieId);
         rentedMovies.setUserId(userId);
@@ -94,12 +103,15 @@ public class MovieService {
                 .filter(t -> t.getYearOfProduction() == year)
                 .collect(Collectors.toList());
     }
-
-    public MovieDto updateMovie(MovieDto movieDto) {
-
-        Contracts.assertNotNull(movieDto.getId(), "Cannot update with no ID");
-        Contracts.assertNotNull(movieRepository.findById(movieDto.getId()), "Movie with that IP doesnt exist");
+    public void addMovie(MovieDto movieDto){
+        Contracts.assertNotNull(movieDto, "Cannot save empty Movie");
         Movie movie = movieMapper.mapToMovie(movieDto);
+        movieRepository.save(movie);
+    }
+    public MovieDto updateMovie(MovieDto movieDto) throws MovieNotFoundException {
+        Contracts.assertNotNull(movieDto.getId(), "Cannot update with no ID");
+        Movie movie = movieMapper.mapToMovie(movieDto);
+        Contracts.assertNotNull(movieRepository.findById(movie.getId()).orElseThrow(MovieNotFoundException::new));
         movieRepository.save(movie);
         return movieMapper.mapToMovieDto(movie);
     }
@@ -112,6 +124,10 @@ public class MovieService {
     public List<MovieDto> findMovieByWord(String word) {
         List<Movie> moviesList = movieRepository.findByTitleLike(word + "%");
         return movieMapper.mapToMovieDtoList(moviesList);
+    }
+    public void deleteMovie(Long movieId){
+        Movie movie = movieRepository.findById(movieId).orElse(null);
+        movieRepository.delete(movie);
     }
 }
 

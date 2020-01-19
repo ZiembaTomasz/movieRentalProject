@@ -16,13 +16,14 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @NotNull
     private String firstName;
 
-    @Column
     @NotNull
     private String secondName;
 
-    @Column
     @NotNull
     private int accountNumber;
 }

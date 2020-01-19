@@ -21,6 +21,10 @@ public class MovieController {
     public List<MovieDto> getMovies() {
         return movieService.getAllMovies();
     }
+    @RequestMapping(method = RequestMethod.GET, value = "getMovie")
+    public MovieDto getMovie(@RequestParam Long movieId) throws MovieNotFoundException{
+        return movieService.getMovieById(movieId);
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "countMoviePrice")
     public int countMoviePrice(MovieType movieType, int days) {
@@ -28,7 +32,7 @@ public class MovieController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/movie/{movieId}/rent/{userId}")
-    public String rentMovie(Long movieId, Long userId) {
+    public String rentMovie(@PathVariable Long movieId, @PathVariable Long userId) {
         return movieService.rentMovie(movieId, userId);
     }
 
@@ -38,27 +42,36 @@ public class MovieController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getMoviesByCategories")
-    public List<MovieDto> getMoviesByCategories(String category) {
+    public List<MovieDto> getMoviesByCategories(@RequestParam String category) {
         return movieService.getMoviesByCategorie(category);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getMoviesByYear")
-    public List<MovieDto> getMoviesByYear(int year) {
+    public List<MovieDto> getMoviesByYear(@RequestParam int year) {
         return movieService.getMovieByYear(year);
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "addMovie")
+    public void addMovie(@RequestBody MovieDto movieDto){
+        movieService.addMovie(movieDto);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateMovie")
-    public MovieDto updateMovie(@RequestBody MovieDto movieDto) {
+    public MovieDto updateMovie(@RequestBody MovieDto movieDto) throws MovieNotFoundException{
         return movieService.updateMovie(movieDto);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getAgeRestriction")
-    public boolean getAgeRestriction(Long movieId) {
+    public boolean getAgeRestriction(@RequestParam Long movieId) {
         return movieService.checkAgeRestriction(movieId);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "searchMoviesByWord")
-    public List<MovieDto> searchMoviesByWord(String word) {
+    public List<MovieDto> searchMoviesByWord(@RequestParam String word) {
         return movieService.findMovieByWord(word);
+    }
+    @RequestMapping(method = RequestMethod.DELETE, value = "deleteMovie")
+    public void deleteMovie(@RequestParam  Long movieId){
+        movieService.deleteMovie(movieId);
+
     }
 }

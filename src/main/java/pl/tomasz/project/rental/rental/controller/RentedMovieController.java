@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@RequestMapping
+@RequestMapping("/rentedMovies")
 public class RentedMovieController {
     private RentedMovieService rentedMovieService;
 

@@ -6,7 +6,6 @@ import lombok.Data;
 import org.springframework.stereotype.Service;
 import pl.tomasz.project.rental.rental.domain.RentedMovies;
 import pl.tomasz.project.rental.rental.domain.RentedMoviesDto;
-import pl.tomasz.project.rental.rental.domain.User;
 import pl.tomasz.project.rental.rental.mapper.RentedMovieMapper;
 import pl.tomasz.project.rental.rental.repository.RentedMoviesRepository;
 import pl.tomasz.project.rental.rental.repository.UserRepository;
