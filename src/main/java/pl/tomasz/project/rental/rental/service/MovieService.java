@@ -129,5 +129,9 @@ public class MovieService {
         Movie movie = movieRepository.findById(movieId).orElse(null);
         movieRepository.delete(movie);
     }
+    public double getRating(Long movieId){
+        Movie movie = movieRepository.findById(movieId).orElseThrow(null);
+        return movie.ratingAverage();
+    }
 }
 

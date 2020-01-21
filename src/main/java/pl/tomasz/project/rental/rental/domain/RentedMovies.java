@@ -23,10 +23,9 @@ public class RentedMovies {
     private Long movieId;
 
     @Column
-    @NotNull
+
     private LocalDateTime dateOfRent;
 
     @Column
-    @NotNull
     private LocalDateTime returnedDate;
 }

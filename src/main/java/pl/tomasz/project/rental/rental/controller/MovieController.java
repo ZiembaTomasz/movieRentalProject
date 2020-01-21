@@ -72,6 +72,9 @@ public class MovieController {
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteMovie")
     public void deleteMovie(@RequestParam  Long movieId){
         movieService.deleteMovie(movieId);
-
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "getRatingOfMovie")
+    public double getRating(Long movieId){
+        return movieService.getRating(movieId);
     }
 }

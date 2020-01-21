@@ -24,8 +24,7 @@ public class RentedMovieService {
     public List<RentedMoviesDto> getAllRentedMovies(){
        return rentedMovieMapper.mapToRentedMovieList(rentedMoviesRepository.findAll());
     }
-    public int countRentedMovies(Long userId){
-        int numberOfRentedMovies = 0;
+    public int countRentedMoviesByUser(Long userId){
         List<RentedMovies>rentedMoviesList = rentedMoviesRepository.findMovieByUserId(userId);
         return rentedMoviesList.size();
     }

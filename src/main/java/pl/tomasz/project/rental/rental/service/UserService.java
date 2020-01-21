@@ -21,6 +21,10 @@ public class UserService {
     public List<UserDto>getAllUsers(){
        return userMapper.mapToUserDtoList(userRepository.findAll());
     }
+    public UserDto getUser(Long userId){
+        User user = userRepository.findById(userId).orElse(null);
+        return userMapper.mapToUserDto(user);
+    }
     public void addUser(UserDto userDto){
         Contracts.assertNotNull(userDto, "Cannot Save empty User");
         User user = userMapper.mapToUser(userDto);

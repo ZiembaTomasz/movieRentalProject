@@ -22,6 +22,10 @@ public class UserController {
     public List<UserDto>getAllUsers(){
         return userService.getAllUsers();
     }
+    @RequestMapping(method = RequestMethod.GET, value = "getUser")
+    public UserDto getUser(@RequestParam Long userId){
+        return userService.getUser(userId);
+    }
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteUser")
     public void deleteMovie(@RequestParam Long movieId){
         userService.deleteUser(movieId);
