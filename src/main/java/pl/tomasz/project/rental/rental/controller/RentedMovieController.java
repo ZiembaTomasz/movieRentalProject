@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.tomasz.project.rental.rental.domain.RentedMoviesDto;
 import pl.tomasz.project.rental.rental.service.RentedMovieService;
@@ -24,7 +25,7 @@ public class RentedMovieController {
         return rentedMovieService.getAllRentedMovies();
     }
     @RequestMapping(method = RequestMethod.GET, value = "getNumberOfRentedMovies")
-    public int getNumberOfRentedMoviesByUser(Long userId){
+    public int getNumberOfRentedMoviesByUser(@RequestParam Long userId){
        return rentedMovieService.countRentedMoviesByUser(userId);
     }
 

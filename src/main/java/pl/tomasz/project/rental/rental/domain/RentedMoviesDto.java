@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 public class RentedMoviesDto {
+    private Long id;
     private Long userId;
     private Long movieId;
     private LocalDateTime dateOfRent;

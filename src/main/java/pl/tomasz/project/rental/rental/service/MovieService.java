@@ -66,7 +66,7 @@ public class MovieService {
         Contracts.assertNotNull(movieId, "Movie with that Id doesnt exist");
         Contracts.assertNotNull(userId, "User with that Id doesnt exist");
         User user = userRepository.findById(userId).orElse(null);
-        Movie movie = movieRepository.findById(movieId).orElse(null);
+        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieNotFoundException::new);
         Contracts.assertNotNull(movie, "Movie doesnt exist");
         Contracts.assertNotNull(user,"User doesnt exist");
         RentedMovies rentedMovies = new RentedMovies();
@@ -126,11 +126,11 @@ public class MovieService {
         return movieMapper.mapToMovieDtoList(moviesList);
     }
     public void deleteMovie(Long movieId){
-        Movie movie = movieRepository.findById(movieId).orElse(null);
+        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieNotFoundException::new);
         movieRepository.delete(movie);
     }
     public double getRating(Long movieId){
-        Movie movie = movieRepository.findById(movieId).orElseThrow(null);
+        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieNotFoundException::new);
         return movie.ratingAverage();
     }
 }

@@ -15,7 +15,7 @@ public class UserMapper {
         return new User(userDto.getId(), userDto.getFirstName(), userDto.getSecondName(), userDto.getAccountNumber());
     }
     public UserDto mapToUserDto(User user){
-        return new UserDto(user.getId(), user.getSecondName(), user.getSecondName(), user.getAccountNumber());
+        return new UserDto(user.getId(), user.getFirstName(), user.getSecondName(), user.getAccountNumber());
     }
     public List<UserDto> mapToUserDtoList(List<User>userList){
         return userList.stream()

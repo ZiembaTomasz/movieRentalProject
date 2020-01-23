@@ -11,18 +11,17 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
-@RequestMapping("/movies")
+@RequestMapping("/movie")
 public class MovieController {
 
     private MovieService movieService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getMovies")
+    @RequestMapping(method = RequestMethod.GET)
     public List<MovieDto> getMovies() {
         return movieService.getAllMovies();
     }
-    @RequestMapping(method = RequestMethod.GET, value = "getMovie")
-    public MovieDto getMovie(@RequestParam Long movieId) throws MovieNotFoundException{
+    @RequestMapping(method = RequestMethod.GET, value = "/{movieId}")
+    public MovieDto getMovie(@PathVariable Long movieId) throws MovieNotFoundException{
         return movieService.getMovieById(movieId);
     }
 
@@ -31,7 +30,7 @@ public class MovieController {
         return movieService.priceOfMovie(movieType, days);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/movie/{movieId}/rent/{userId}")
+    @RequestMapping(method = RequestMethod.POST, value = "/{movieId}/rent/{userId}")
     public String rentMovie(@PathVariable Long movieId, @PathVariable Long userId) {
         return movieService.rentMovie(movieId, userId);
     }

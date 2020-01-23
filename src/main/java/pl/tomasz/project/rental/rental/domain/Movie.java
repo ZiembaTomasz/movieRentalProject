@@ -22,6 +22,7 @@ public class Movie {
     private String title;
     @Column
     @NotNull
+    @Enumerated(EnumType.STRING)
     private MovieType movieType;
     @Column
     @NotNull
