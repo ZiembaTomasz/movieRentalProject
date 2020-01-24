@@ -132,6 +132,7 @@ public class MovieServiceTest {
         List<UserRating>userRatings = new ArrayList<>();
         MovieDto movieDto = new MovieDto(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
                 2018, true, userRatings);
+        when(movieRepository.findById(1L)).thenReturn(Optional.of(movieMapper.mapToMovie(movieDto)));
         //When
         MovieDto resultMovie = movieService.updateMovie(movieDto);
         //Then

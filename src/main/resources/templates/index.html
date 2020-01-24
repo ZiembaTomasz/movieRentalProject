@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Thymealeaf</title>
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+<body>
+<h1> Start </h1>
+<span th:text="${variable}"></span>
+
+<table class="container">
+    <thead>
+    <tr>
+        <th> Title</th>
+        <th> Category</th>
+        <th> Year</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${movies.empty}">
+        <td colspan="2"> No Movies Available</td>
+    </tr>
+    <tr th:each="movie : ${movies}">
+        <td><span th:text="${movie.title}"> Title </span></td>
+        <td><span th:text="${movie.category}"> Category </span></td>
+        <td><span th:text="${movie.yearOfProduction}"> Year </span></td>
+        <td><i class="fa fa-trash" aria-hidden="true"></i></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
