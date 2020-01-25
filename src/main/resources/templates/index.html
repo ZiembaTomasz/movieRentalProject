@@ -10,6 +10,26 @@
 <h1> Start </h1>
 <span th:text="${variable}"></span>
 
+
+<form th:action="@{/movie/add}" th:object="${newMovie}" method="post">
+    <div>Title: <input type="text" th:field="*{title}" /></div>
+    <div>Type:
+        <select th:field="*{movieType}">
+            <option value="NEW_MOVIE">New</option>
+            <option value="BASIC_MOVIE">Basic</option>
+            <option value="OLD_MOVIE">Old</option>
+        </select>
+    </div>
+    <div>Category: <input type="text" th:field="*{category}" /></div>
+    <div>Year: <input type="text" th:field="*{yearOfProduction}" /></div>
+    <button type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>
+</form>
+<form th:action="@{/movie/calculate(movieId=${calculator.movieId},days=${calculator.days})}" th:object="${calculator}" method="get">
+    <div>Id: <input type="number" th:field="*{movieId}"/></div>
+    <div>Days: <input type="number" th:field="*{days}"/></div>
+    <button type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>
+</form>
+<div th:text="${price}"></div>
 <table class="container">
     <thead>
     <tr>
@@ -23,10 +43,15 @@
         <td colspan="2"> No Movies Available</td>
     </tr>
     <tr th:each="movie : ${movies}">
+        <td><span th:text="${movie.id}"> ID </span></td>
         <td><span th:text="${movie.title}"> Title </span></td>
         <td><span th:text="${movie.category}"> Category </span></td>
         <td><span th:text="${movie.yearOfProduction}"> Year </span></td>
-        <td><i class="fa fa-trash" aria-hidden="true"></i></td>
+        <td>
+            <form th:action="@{/movie/delete/{id}(id=${movie.id})}" method="post">
+                <button type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
