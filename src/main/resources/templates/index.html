@@ -7,35 +7,92 @@
     <link rel="stylesheet" href="/css/font-awesome.min.css">
 </head>
 <body>
-<h1> Start </h1>
+<h1> Add Movie </h1>
 <span th:text="${variable}"></span>
-
-
-<form th:action="@{/movie/add}" th:object="${newMovie}" method="post">
-    <div>Title: <input type="text" th:field="*{title}" /></div>
-    <div>Type:
-        <select th:field="*{movieType}">
-            <option value="NEW_MOVIE">New</option>
-            <option value="BASIC_MOVIE">Basic</option>
-            <option value="OLD_MOVIE">Old</option>
-        </select>
-    </div>
-    <div>Category: <input type="text" th:field="*{category}" /></div>
-    <div>Year: <input type="text" th:field="*{yearOfProduction}" /></div>
-    <button type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>
-</form>
-<form th:action="@{/movie/calculate(movieId=${calculator.movieId},days=${calculator.days})}" th:object="${calculator}" method="get">
-    <div>Id: <input type="number" th:field="*{movieId}"/></div>
-    <div>Days: <input type="number" th:field="*{days}"/></div>
-    <button type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>
-</form>
-<div th:text="${price}"></div>
+<div class="container">
+    <form th:action="@{/movie/add}" th:object="${newMovie}" method="post">
+        <div class="row">
+            <div class="col-25">
+                <label for="movie">Title</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="movie"  th:field="*{title}" placeholder="Your movie...">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="movieType">Movie Type</label>
+            </div>
+            <div class="col-75">
+                <select id="movieType" th:field="*{movieType}">
+                    <option value="NEW_MOVIE">New</option>
+                    <option value="BASIC_MOVIE">Basic</option>
+                    <option value="OLD_MOVIE">Old</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="category">Category</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="category" th:field="*{category}" placeholder="Movie's category...">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="year">Year</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="year" th:field="*{yearOfProduction}" placeholder="Year of production...">
+            </div>
+        </div>
+        <div class="row">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+<h1>Price Calculator</h1>
+<div class="container">
+    <form th:action="@{/movie/calculate(movieId=${calculator.movieId},days=${calculator.days})}" th:object="${calculator}" method="get">
+        <div class="row">
+            <div class="col-25">
+                <label for="id"> id</label>
+            </div>
+            <div class="col-75">
+                <input type="number" id="id" th:field="*{movieId}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="days"> Days</label>
+            </div>
+                <div class="col-75">
+                    <input type="number" id="days" th:field="*{days}">
+                </div>
+            </div>
+        <div class="row">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+    <div class="row" style="width: 50%;">
+        <div class="col-25">
+            <label for="result"> Result</label>
+        </div>
+            <div class="col-75">
+                <h3 id="result" th:text="${price}"/>
+            </div>
+        </div>
+</div>
+<h1>Movies</h1>
 <table class="container">
     <thead>
     <tr>
+        <th> Id</th>
         <th> Title</th>
         <th> Category</th>
         <th> Year</th>
+        <th> Delete Movie</th>
     </tr>
     </thead>
     <tbody>
