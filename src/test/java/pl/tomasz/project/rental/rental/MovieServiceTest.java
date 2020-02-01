@@ -87,8 +87,8 @@ public class MovieServiceTest {
         User user = new User(1L,"Jack", "Sparrow", 1);
         Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
                 2018, true, userRatings);
-        when(movieRepository.getOne(1L)).thenReturn(movie);
-        when(userRepository.getOne(1L)).thenReturn(user);
+        when(movieRepository.findById(1L)).thenReturn(Optional.of(movie));
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         MovieService movieService = new MovieService(movieMapper, movieRepository, userRepository,
                 rentedMoviesRepository);
         //|When

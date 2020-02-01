@@ -4,8 +4,8 @@ plugins {
 	id 'java'
 }
 
-group = 'pl.tomasz.project.rental'
-version = '0.0.1-SNAPSHOT'
+group = 'pl.tomasz.project.rental.rental'
+version = '0.0.1'
 sourceCompatibility = '1.8'
 
 repositories {
