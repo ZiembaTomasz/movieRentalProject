@@ -12,6 +12,6 @@ FROM openjdk:8-jdk-alpine
 ENV APP /app
 RUN mkdir $APP
 WORKDIR $APP
-COPY --from=builder /build/build/libs/rental-0.0.1.jar .
-ENTRYPOINT ["java", "-jar", "rental-0.0.1.jar"]
+COPY --from=builder /build/build/libs/rental-1.0.jar .
+ENTRYPOINT ["java", "-jar", "rental-1.0.jar"]
 EXPOSE 8080

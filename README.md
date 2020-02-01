@@ -1,16 +1,56 @@
-~~~~Movie Rental Project~~~~
+# About
 
 Backend and REST application uses Database(MySQL) and Spring Boot.
 
-- renting and returning
-movies
+* renting and returning movies
+* calculating the cost of rented movies
+* HTML view written using Thymeleaf
+* download rental history
+* calculating average movie rating
+* adding movies to the database
+* application tests
 
-- calculating the cost of borrowing movies
+## Technologies
 
-- download rental history
+* Java8
+* Spring Boot
+* Hibernate
+* REST API
+* Lombok
+* H2
+* Git
+* Gradle
+* Docker
+* HTML
+* CSS
+* Thymeleaf
 
-- adding movies to the database
 
-- application tests
+# Run from source
 
- Technologies: Java8, Spring, Hibernate, REST API, Lombok, MySQL, HTML, CSS, Thymeleaf
+## Build and create package
+```
+gradle build
+```
+## Run image
+```
+java -jar build/libs/rental-1.0.jar
+```
+
+# Docker
+
+## How to run with docker
+Pull image from dockerhub and run it
+```
+docker pull ziembatomasz/rental:1.0
+docker run -p 8080:8080 ziembatomasz/rental:1.0
+```
+Open in browser:
+```
+http://localhost:8080
+```
+
+## How to build docker image
+```
+docker build -t ziembatomasz/rental:1.0 .
+```
