@@ -13,4 +13,4 @@ movies
 
 - application tests
 
- Technologies: Java8, Spring, Hibernate, REST API, Lombok, MySQL
+ Technologies: Java8, Spring, Hibernate, REST API, Lombok, MySQL, HTML, CSS, Thymeleaf

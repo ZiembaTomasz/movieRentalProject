@@ -2,13 +2,36 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>My Thymealeaf</title>
+    <title>Rental Movie</title>
     <link th:href="@{/style.css}" rel="stylesheet">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
 </head>
 <body>
+<h1>Hello: <span th:text="${user.firstName}"/> <span th:text="${user.secondName}"/></h1>
 <h1> Add Movie </h1>
 <span th:text="${variable}"></span>
+<div class="container">
+    <form th:action="@{/login}" th:object="${user}" method="post">
+        <div class="row">
+            <div class="col-25">
+                <label for="userId">Your id</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="userId" th:field="*{id}" placeholder="Your id...">
+            </div>
+        </div>
+        <div class="row">
+            <input type="submit" value="Login">
+        </div>
+    </form>
+</div>
+<div class="container">
+    <form th:action="@{/logout}" method="post">
+        <div class="row">
+            <input type="submit" value="Logout">
+        </div>
+    </form>
+</div>
 <div class="container">
     <form th:action="@{/movie/add}" th:object="${newMovie}" method="post">
         <div class="row">
@@ -16,7 +39,7 @@
                 <label for="movie">Title</label>
             </div>
             <div class="col-75">
-                <input type="text" id="movie"  th:field="*{title}" placeholder="Your movie...">
+                <input type="text" id="movie" th:field="*{title}" placeholder="Your movie...">
             </div>
         </div>
         <div class="row">
@@ -54,7 +77,8 @@
 </div>
 <h1>Price Calculator</h1>
 <div class="container">
-    <form th:action="@{/movie/calculate(movieId=${calculator.movieId},days=${calculator.days})}" th:object="${calculator}" method="get">
+    <form th:action="@{/movie/calculate(movieId=${calculator.movieId},days=${calculator.days})}"
+          th:object="${calculator}" method="get">
         <div class="row">
             <div class="col-25">
                 <label for="id"> id</label>
@@ -67,10 +91,10 @@
             <div class="col-25">
                 <label for="days"> Days</label>
             </div>
-                <div class="col-75">
-                    <input type="number" id="days" th:field="*{days}">
-                </div>
+            <div class="col-75">
+                <input type="number" id="days" th:field="*{days}">
             </div>
+        </div>
         <div class="row">
             <input type="submit" value="Submit">
         </div>
@@ -79,10 +103,10 @@
         <div class="col-25">
             <label for="result"> Result</label>
         </div>
-            <div class="col-75">
-                <h3 id="result" th:text="${price}"/>
-            </div>
+        <div class="col-75">
+            <h3 id="result" th:text="${price}"/>
         </div>
+    </div>
 </div>
 <h1>Movies</h1>
 <table class="container">

@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.tomasz.project.rental.rental.domain.MovieDto;
+import pl.tomasz.project.rental.rental.domain.UserDto;
 import pl.tomasz.project.rental.rental.interfaces.MovieType;
 import pl.tomasz.project.rental.rental.service.MovieService;
+import pl.tomasz.project.rental.rental.service.UserService;
 
 import java.util.Map;
 
@@ -14,6 +16,7 @@ import java.util.Map;
 public class ThymeleafMovieController {
 
     private MovieService movieService;
+    private UserService userService;
 
     @GetMapping("/")
     public String index(Map<String, Object> model){
@@ -44,13 +47,28 @@ public class ThymeleafMovieController {
         return "index";
     }
 
+    @PostMapping("/login")
+    public String login(@ModelAttribute UserDto userDto, Map<String, Object>model) {
+        userDto = userService.getUser(userDto.getId());
+        model.put("user", userDto);
+        fillModel(model);
+        return "index";
+    }
+
     private void fillModel(Map<String, Object> model) {
-        model.put("variable", "My Thymeleaf variable");
         model.put("movies", movieService.getAllMovies());
         model.put("newMovie", new MovieDto());
         model.put("calculator", new CalculatePriceDto());
+        if (!model.containsKey("user")) {
+            model.put("user", new UserDto());
+        }
     }
-
+    @PostMapping("/logout")
+    public String logout(Map<String, Object>model){
+        model.put("user", new UserDto());
+        fillModel(model);
+        return "index";
+    }
 }
 
 
