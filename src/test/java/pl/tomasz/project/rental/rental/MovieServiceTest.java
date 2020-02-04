@@ -148,9 +148,8 @@ public class MovieServiceTest {
         movieService.updateMovie(movieDto1);
     }
     @Test
-    public void shouldgetMovieByYear(){
+    public void shouldGetMovieByYear(){
         //Given
-        List<MovieDto>movieDtoList = new ArrayList<>();
         List<UserRating>userRatings = new ArrayList<>();
         Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
                 2018, true, userRatings);

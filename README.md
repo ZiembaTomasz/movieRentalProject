@@ -1,6 +1,9 @@
 # About
 
-Backend and REST application uses Database(MySQL) and Spring Boot.
+##### Backend and CRUD REST API application uses Database(H2) and Spring Boot. 
+
+##### Additionally application has frontend written in Thymeleaf. 
+
 
 * renting and returning movies
 * calculating the cost of rented movies
@@ -40,7 +43,7 @@ java -jar build/libs/rental-1.0.jar
 # Docker
 
 ## How to run with docker
-Pull image from dockerhub and run it
+Pull image from dockerHub and run it
 ```
 docker pull ziembatomasz/rental:1.0
 docker run -p 8080:8080 ziembatomasz/rental:1.0
