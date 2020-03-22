@@ -49,7 +49,7 @@ public class ThymeleafMovieController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute UserDto userDto, Map<String, Object>model) {
-        userDto = userService.getUser(userDto.getId());
+        userDto = userService.getUserById(userDto.getId());
         model.put("user", userDto);
         fillModel(model);
         return "index";

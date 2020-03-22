@@ -2,10 +2,10 @@ package pl.tomasz.project.rental.rental.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 import org.hibernate.validator.internal.util.Contracts;
 import org.springframework.stereotype.Service;
-import pl.tomasz.project.rental.rental.controller.MovieNotFoundException;
+import pl.tomasz.project.rental.rental.exception.MovieNotFoundException;
 import pl.tomasz.project.rental.rental.domain.Movie;
 import pl.tomasz.project.rental.rental.domain.MovieDto;
 import pl.tomasz.project.rental.rental.domain.RentedMovies;

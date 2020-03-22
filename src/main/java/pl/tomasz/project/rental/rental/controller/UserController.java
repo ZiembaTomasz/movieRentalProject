@@ -4,6 +4,7 @@ package pl.tomasz.project.rental.rental.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.tomasz.project.rental.rental.domain.UserDto;
+import pl.tomasz.project.rental.rental.exception.UserNotFoundException;
 import pl.tomasz.project.rental.rental.service.UserService;
 
 import java.util.List;
@@ -14,19 +15,20 @@ import java.util.List;
 public class UserController {
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.POST, value = "addUser")
+    @PostMapping(value = "addUser")
     public void addUser(@RequestBody UserDto userDto){
         userService.addUser(userDto);
     }
-    @RequestMapping(method = RequestMethod.GET, value = "getUsers")
+
+    @GetMapping
     public List<UserDto>getAllUsers(){
         return userService.getAllUsers();
     }
-    @RequestMapping(method = RequestMethod.GET, value = "getUser")
-    public UserDto getUser(@RequestParam Long userId){
-        return userService.getUser(userId);
+    @GetMapping(value = "/{userId}")
+    public UserDto getUser(@PathVariable Long userId)throws UserNotFoundException {
+        return userService.getUserById(userId);
     }
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteUser")
+    @DeleteMapping(value = "deleteUser")
     public void deleteMovie(@RequestParam Long movieId){
         userService.deleteUser(movieId);
     }
