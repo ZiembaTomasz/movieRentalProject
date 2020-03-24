@@ -1,4 +1,4 @@
-package pl.tomasz.project.rental.rental;
+package pl.tomasz.project.rental.rental.service;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -83,7 +83,6 @@ public class MovieServiceTest {
     public void shouldRentMovie() {
         //Given
         ArrayList<UserRating> userRatings = new ArrayList<>();
-        Date date = new GregorianCalendar(1988, 06, 15).getGregorianChange();
         User user = new User(1L,"Jack", "Sparrow", 1);
         Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
                 2018, true, userRatings);

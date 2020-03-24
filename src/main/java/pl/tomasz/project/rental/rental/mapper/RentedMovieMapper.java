@@ -2,8 +2,8 @@ package pl.tomasz.project.rental.rental.mapper;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
-import pl.tomasz.project.rental.rental.domain.RentedMovies;
-import pl.tomasz.project.rental.rental.domain.RentedMoviesDto;
+import pl.tomasz.project.rental.rental.domain.RentedMovie;
+import pl.tomasz.project.rental.rental.domain.RentedMovieDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,16 +11,16 @@ import java.util.stream.Collectors;
 @Data
 @Component
 public class RentedMovieMapper {
-    public RentedMovies mapToRentedMovie(RentedMoviesDto rentedMoviesDto){
-        return new RentedMovies(rentedMoviesDto.getId(), rentedMoviesDto.getMovieId(), rentedMoviesDto.getUserId(),
-                rentedMoviesDto.getDateOfRent(), rentedMoviesDto.getReturnedDate());
+    public RentedMovie mapToRentedMovie(RentedMovieDto rentedMovieDto){
+        return new RentedMovie(rentedMovieDto.getId(), rentedMovieDto.getMovieId(), rentedMovieDto.getUserId(),
+                rentedMovieDto.getDateOfRent(), rentedMovieDto.getReturnedDate());
     }
-    public RentedMoviesDto mapToRentedMovieDto(RentedMovies rentedMovies){
-        return new RentedMoviesDto(rentedMovies.getId(), rentedMovies.getUserId(), rentedMovies.getMovieId(),
-                rentedMovies.getDateOfRent(), rentedMovies.getReturnedDate());
+    public RentedMovieDto mapToRentedMovieDto(RentedMovie rentedMovie){
+        return new RentedMovieDto(rentedMovie.getId(), rentedMovie.getUserId(), rentedMovie.getMovieId(),
+                rentedMovie.getDateOfRent(), rentedMovie.getReturnedDate());
     }
-    public List<RentedMoviesDto> mapToRentedMovieList(List<RentedMovies>rentedMoviesList){
-        return rentedMoviesList.stream()
+    public List<RentedMovieDto> mapToRentedMovieList(List<RentedMovie> rentedMovieList){
+        return rentedMovieList.stream()
                 .map(t -> mapToRentedMovieDto(t))
                 .collect(Collectors.toList());
     }

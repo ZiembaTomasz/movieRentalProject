@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.tomasz.project.rental.rental.domain.RentedMoviesDto;
+import pl.tomasz.project.rental.rental.domain.RentedMovieDto;
 import pl.tomasz.project.rental.rental.service.RentedMovieService;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class RentedMovieController {
     private RentedMovieService rentedMovieService;
 
     @RequestMapping(method = RequestMethod.GET, value = "getRentedList")
-    public List<RentedMoviesDto> getRentedMovies(){
+    public List<RentedMovieDto> getRentedMovies(){
         return rentedMovieService.getAllRentedMovies();
     }
     @RequestMapping(method = RequestMethod.GET, value = "getNumberOfRentedMovies")

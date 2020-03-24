@@ -6,13 +6,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class RentedMovies {
+public class RentedMovie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,8 +27,8 @@ public class RentedMovies {
 
     @Column
 
-    private LocalDateTime dateOfRent;
+    private LocalDate dateOfRent;
 
     @Column
-    private LocalDateTime returnedDate;
+    private LocalDate returnedDate;
 }

@@ -63,6 +63,7 @@ public class UserServiceTest {
     }
     @Test
     public void shouldDeleteUser(){
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         //When
         userService.deleteUser(user.getId());
         //Then
