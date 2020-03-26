@@ -32,4 +32,8 @@ public class UserController {
     public void deleteMovie(@RequestParam Long movieId){
         userService.deleteUser(movieId);
     }
+    @GetMapping(value = "/{accountNumber}")
+    public UserDto userDto(@PathVariable int accountNumber){
+        return userService.getUserByAccountNumber(accountNumber);
+    }
 }

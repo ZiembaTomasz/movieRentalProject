@@ -6,5 +6,5 @@ import pl.tomasz.project.rental.rental.domain.User;
 import java.util.Date;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findUserByAccountNumber(int birthday);
+    User findUserByAccountNumber(int accountNumber);
 }

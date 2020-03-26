@@ -63,10 +63,20 @@ public class UserServiceTest {
     }
     @Test
     public void shouldDeleteUser(){
+        //Given
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         //When
         userService.deleteUser(user.getId());
         //Then
         verify(userRepository, times(1)).deleteById(1L);
+    }
+    @Test
+    public void shouldGetUserByAccountNumber(){
+        //Given
+        when(userRepository.findUserByAccountNumber(12345)).thenReturn(user);
+        //When
+        UserDto userDto = userService.getUserByAccountNumber(12345);
+        //Then
+        assertEquals(12345, userDto.getAccountNumber());
     }
 }

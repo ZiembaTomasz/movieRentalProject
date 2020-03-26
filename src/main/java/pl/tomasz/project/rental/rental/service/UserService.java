@@ -35,4 +35,9 @@ public class UserService {
         userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         userRepository.deleteById(userId);
     }
+    public UserDto getUserByAccountNumber(int accountNumber){
+        User user = userRepository.findUserByAccountNumber(accountNumber);
+        return userMapper.mapToUserDto(user);
+    }
+
 }
