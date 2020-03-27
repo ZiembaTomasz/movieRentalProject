@@ -22,7 +22,7 @@ public class MovieMapper {
 
     public List<MovieDto> mapToMovieDtoList(List<Movie> movieList) {
         return movieList.stream()
-                .map(t -> mapToMovieDto(t))
+                .map(this::mapToMovieDto)
                 .collect(Collectors.toList());
     }
 }

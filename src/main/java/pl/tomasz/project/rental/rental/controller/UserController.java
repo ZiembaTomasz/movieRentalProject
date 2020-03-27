@@ -33,7 +33,7 @@ public class UserController {
         userService.deleteUser(movieId);
     }
     @GetMapping(value = "/{accountNumber}")
-    public UserDto userDto(@PathVariable int accountNumber){
+    public UserDto getUserByAccountNumber(@PathVariable int accountNumber){
         return userService.getUserByAccountNumber(accountNumber);
     }
 }
