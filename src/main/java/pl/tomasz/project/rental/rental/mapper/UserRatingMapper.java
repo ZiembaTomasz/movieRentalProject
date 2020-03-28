@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class RatingMapper {
+public class UserRatingMapper {
     public UserRating mapToUserRating(UserRatingDto userRatingDto){
         return new UserRating(userRatingDto.getId(),userRatingDto.getRate(), userRatingDto.getUser(),
                 userRatingDto.getMovieId());
@@ -17,7 +17,7 @@ public class RatingMapper {
         return new UserRatingDto(userRating.getId(), userRating.getRate(), userRating.getUser(),
                 userRating.getMovieId());
     }
-    public List<UserRatingDto>userRatingDtos(List<UserRating>userRatings){
+    public List<UserRatingDto>mapToUserRatingDtos(List<UserRating>userRatings){
         return userRatings.stream()
                 .map(t-> mapToUserRatingDto(t))
                 .collect(Collectors.toList());
