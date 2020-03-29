@@ -2,11 +2,9 @@ package pl.tomasz.project.rental.rental.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.tomasz.project.rental.rental.domain.UserRating;
 import pl.tomasz.project.rental.rental.domain.UserRatingDto;
 import pl.tomasz.project.rental.rental.service.UserRatingService;
 
-import javax.persistence.PostUpdate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,8 +20,16 @@ public class UserRatingController {
     public UserRatingDto getUserRating(@RequestParam Long userRatingId){
         return userRatingService.getUserRating(userRatingId);
     }
+    @PutMapping(value = "addUserRating")
+    public void addUserRating(@RequestBody UserRatingDto userRatingDto){
+
+    }
     @PostMapping(value = "updateUserRating")
-    public UserRatingDto updateUserRting(@RequestBody UserRating userRating){
-        return us
+    public UserRatingDto updateUserRating(@RequestBody UserRatingDto userRatingDto){
+        return userRatingService.updateUserRating(userRatingDto);
+    }
+    @DeleteMapping(value = "deleteUserRating")
+    public void deleteUserRating(@RequestParam Long userRatingId){
+        userRatingService.deleteUserRating(userRatingId);
     }
 }
