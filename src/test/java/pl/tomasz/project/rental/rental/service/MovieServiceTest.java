@@ -15,7 +15,6 @@ import pl.tomasz.project.rental.rental.mapper.MovieMapper;
 import pl.tomasz.project.rental.rental.repository.MovieRepository;
 import pl.tomasz.project.rental.rental.repository.RentedMoviesRepository;
 import pl.tomasz.project.rental.rental.repository.UserRepository;
-import pl.tomasz.project.rental.rental.service.MovieService;
 
 import java.util.*;
 
@@ -26,7 +25,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class MovieServiceTest {
 
-    MovieService movieService;
+    private MovieService movieService;
     @Mock
     UserRepository userRepository;
     @Mock
@@ -34,7 +33,7 @@ public class MovieServiceTest {
     @Mock
     RentedMoviesRepository rentedMoviesRepository;
 
-    MovieMapper movieMapper = new MovieMapper();
+    private MovieMapper movieMapper = new MovieMapper();
     @Before
     public void createMovieServiceObject(){
         movieService = new MovieService(movieMapper, movieRepository, userRepository,
@@ -88,8 +87,6 @@ public class MovieServiceTest {
                 2018, true, userRatings);
         when(movieRepository.findById(1L)).thenReturn(Optional.of(movie));
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-        MovieService movieService = new MovieService(movieMapper, movieRepository, userRepository,
-                rentedMoviesRepository);
         //|When
         String text = movieService.rentMovie(1L, 1L);
         //Then

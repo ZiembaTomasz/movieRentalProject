@@ -16,7 +16,6 @@ public class UserRating {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
     @Column
     private int rate;
 
