@@ -26,7 +26,7 @@ public class RentedMovieController {
     }
     @RequestMapping(method = RequestMethod.GET, value = "getNumberOfRentedMovies")
     public int getNumberOfRentedMoviesByUser(@RequestParam Long userId){
-       return rentedMovieService.countRentedMoviesByUser(userId);
+       return rentedMovieService.countRentedMoviesByUserId(userId);
     }
 
 }

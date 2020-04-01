@@ -22,8 +22,12 @@ public class RentedMovieService {
     public List<RentedMovieDto> getAllRentedMovies(){
        return rentedMovieMapper.mapToRentedMovieList(rentedMoviesRepository.findAll());
     }
-    public int countRentedMoviesByUser(Long userId){
-        List<RentedMovie> rentedMovieList = rentedMoviesRepository.findMovieByUserId(userId);
-        return rentedMovieList.size();
+    public int countRentedMoviesByUserId(Long userId){
+        List<RentedMovie> rentedMovies = rentedMoviesRepository.findMovieByUserId(userId);
+        return rentedMovies.size();
+    }
+    public int countRentedMoviesByMovieId(Long movieId){
+        List<RentedMovie> rentedMovies = rentedMoviesRepository.findMovieByMovieId(movieId);
+        return  rentedMovies.size();
     }
 }
