@@ -8,17 +8,14 @@ import org.springframework.stereotype.Service;
 import pl.tomasz.project.rental.rental.exception.MovieNotFoundException;
 import pl.tomasz.project.rental.rental.domain.Movie;
 import pl.tomasz.project.rental.rental.domain.MovieDto;
-import pl.tomasz.project.rental.rental.domain.RentedMovie;
 import pl.tomasz.project.rental.rental.domain.User;
+import pl.tomasz.project.rental.rental.exception.UserNotFoundException;
 import pl.tomasz.project.rental.rental.interfaces.MovieType;
 import pl.tomasz.project.rental.rental.mapper.MovieMapper;
 import pl.tomasz.project.rental.rental.repository.MovieRepository;
 import pl.tomasz.project.rental.rental.repository.RentedMoviesRepository;
 import pl.tomasz.project.rental.rental.repository.UserRepository;
 
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,10 +23,11 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 public class MovieService {
-    MovieMapper movieMapper;
-    MovieRepository movieRepository;
-    UserRepository userRepository;
-    RentedMoviesRepository rentedMoviesRepository;
+    private MovieMapper movieMapper;
+    private MovieRepository movieRepository;
+    private UserRepository userRepository;
+    private RentedMoviesRepository rentedMoviesRepository;
+    private RentedMovieService rentedMovieService;
 
 
     public int priceOfMovie(MovieType movieType, int days) {
@@ -67,26 +65,18 @@ public class MovieService {
     public String rentMovie(Long movieId, Long userId) {
         Contracts.assertNotNull(movieId, "Movie with that Id doesnt exist");
         Contracts.assertNotNull(userId, "User with that Id doesnt exist");
-        User user = userRepository.findById(userId).orElse(null);
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         Movie movie = movieRepository.findById(movieId).orElseThrow(MovieNotFoundException::new);
         Contracts.assertNotNull(movie, "Movie doesnt exist");
         Contracts.assertNotNull(user,"User doesnt exist");
-        RentedMovie rentedMovie = new RentedMovie();
-        rentedMovie.setMovieId(movieId);
-        rentedMovie.setUserId(userId);
-        rentedMovie.setDateOfRent(LocalDate.now());
-        rentedMoviesRepository.save(rentedMovie);
+        rentedMovieService.createRentedMovieObject(userId, movieId);
         return user.getFirstName() + " " + user.getSecondName() + " rented " + movie.getTitle();
     }
 
     public String returnMovie(Long movieId, Long userId) {
         User user = userRepository.getOne(userId);
         Movie movie = movieRepository.getOne(movieId);
-        RentedMovie rentedMovie = new RentedMovie();
-        rentedMovie.setMovieId(movieId);
-        rentedMovie.setUserId(userId);
-        rentedMovie.setReturnedDate(LocalDate.now());
-        rentedMoviesRepository.save(rentedMovie);
+        rentedMovieService.createRentedMovieObject(userId, movieId);
         return user.getFirstName() + " " + user.getSecondName() + " returned " + movie.getTitle();
     }
 

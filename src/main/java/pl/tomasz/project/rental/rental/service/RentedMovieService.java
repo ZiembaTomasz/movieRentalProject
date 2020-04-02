@@ -10,6 +10,7 @@ import pl.tomasz.project.rental.rental.mapper.RentedMovieMapper;
 import pl.tomasz.project.rental.rental.repository.RentedMoviesRepository;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,6 +23,9 @@ public class RentedMovieService {
     public List<RentedMovieDto> getAllRentedMovies(){
        return rentedMovieMapper.mapToRentedMovieList(rentedMoviesRepository.findAll());
     }
+    public RentedMovieDto getRentedMovie(Long id ){
+        return rentedMovieMapper.mapToRentedMovieDto(rentedMoviesRepository.getOne(id));
+    }
     public int countRentedMoviesByUserId(Long userId){
         List<RentedMovie> rentedMovies = rentedMoviesRepository.findMovieByUserId(userId);
         return rentedMovies.size();
@@ -29,5 +33,12 @@ public class RentedMovieService {
     public int countRentedMoviesByMovieId(Long movieId){
         List<RentedMovie> rentedMovies = rentedMoviesRepository.findMovieByMovieId(movieId);
         return  rentedMovies.size();
+    }
+    public void createRentedMovieObject(Long userId, Long movieId){
+        RentedMovie rentedMovie = new RentedMovie();
+        rentedMovie.setMovieId(movieId);
+        rentedMovie.setUserId(userId);
+        rentedMovie.setDateOfRent(LocalDate.now());
+        rentedMoviesRepository.save(rentedMovie);
     }
 }

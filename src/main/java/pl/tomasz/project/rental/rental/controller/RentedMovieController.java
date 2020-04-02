@@ -3,10 +3,7 @@ package pl.tomasz.project.rental.rental.controller;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.tomasz.project.rental.rental.domain.RentedMovieDto;
 import pl.tomasz.project.rental.rental.service.RentedMovieService;
 
@@ -20,13 +17,22 @@ import java.util.List;
 public class RentedMovieController {
     private RentedMovieService rentedMovieService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getRentedList")
+    @GetMapping
     public List<RentedMovieDto> getRentedMovies(){
         return rentedMovieService.getAllRentedMovies();
     }
-    @RequestMapping(method = RequestMethod.GET, value = "getNumberOfRentedMovies")
+    @GetMapping
+    public RentedMovieDto getRentedMovie(@RequestParam Long rentedMovieId){
+        return rentedMovieService.getRentedMovie(rentedMovieId);
+    }
+    @GetMapping(value = "getNumberOfRentedMoviesByUserId")
     public int getNumberOfRentedMoviesByUser(@RequestParam Long userId){
        return rentedMovieService.countRentedMoviesByUserId(userId);
     }
+    @GetMapping(value = "getNumberOfRentedMoviesByMovieId")
+    public int getNumberOfRentedMoviesByMovie(@RequestParam Long movieId){
+        return rentedMovieService.countRentedMoviesByMovieId(movieId);
+    }
+
 
 }
