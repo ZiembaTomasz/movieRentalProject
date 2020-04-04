@@ -32,12 +32,13 @@ public class MovieServiceTest {
     MovieRepository movieRepository;
     @Mock
     RentedMoviesRepository rentedMoviesRepository;
-
+    @Mock
+    RentedMovieService rentedMovieService;
     private MovieMapper movieMapper = new MovieMapper();
     @Before
     public void createMovieServiceObject(){
         movieService = new MovieService(movieMapper, movieRepository, userRepository,
-                rentedMoviesRepository);
+                rentedMoviesRepository, rentedMovieService);
     }
     @Test
     public void priceOfNewMovieTest(){
@@ -172,8 +173,6 @@ public class MovieServiceTest {
         movieList.add(movie);
         movieList.add(movie1);
         when(movieRepository.findAll()).thenReturn(movieList);
-        MovieService movieService = new MovieService(movieMapper, movieRepository, userRepository,
-                rentedMoviesRepository);
         //When
         List<MovieDto>myChoosenCategorie = movieService.getMoviesByCategorie("horror");
         //Then

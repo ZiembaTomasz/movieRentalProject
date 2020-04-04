@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.stereotype.Service;
 import pl.tomasz.project.rental.rental.domain.RentedMovie;
 import pl.tomasz.project.rental.rental.domain.RentedMovieDto;
+import pl.tomasz.project.rental.rental.exception.RentedMovieNotFoundException;
 import pl.tomasz.project.rental.rental.mapper.RentedMovieMapper;
 import pl.tomasz.project.rental.rental.repository.RentedMoviesRepository;
 
@@ -24,7 +25,8 @@ public class RentedMovieService {
        return rentedMovieMapper.mapToRentedMovieList(rentedMoviesRepository.findAll());
     }
     public RentedMovieDto getRentedMovie(Long id ){
-        return rentedMovieMapper.mapToRentedMovieDto(rentedMoviesRepository.getOne(id));
+        RentedMovie rentedMovie = rentedMoviesRepository.findById(id).orElseThrow(RentedMovieNotFoundException::new);
+        return rentedMovieMapper.mapToRentedMovieDto(rentedMovie);
     }
     public int countRentedMoviesByUserId(Long userId){
         List<RentedMovie> rentedMovies = rentedMoviesRepository.findMovieByUserId(userId);
@@ -40,5 +42,10 @@ public class RentedMovieService {
         rentedMovie.setUserId(userId);
         rentedMovie.setDateOfRent(LocalDate.now());
         rentedMoviesRepository.save(rentedMovie);
+    }
+    public void deleteRentedMovie(Long rentedMovieId){
+        RentedMovie rentedMovie = rentedMoviesRepository.findById(rentedMovieId).orElseThrow(RentedMovieNotFoundException::new);
+        rentedMoviesRepository.delete(rentedMovie);
+
     }
 }

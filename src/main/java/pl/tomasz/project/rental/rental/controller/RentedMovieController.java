@@ -33,6 +33,10 @@ public class RentedMovieController {
     public int getNumberOfRentedMoviesByMovie(@RequestParam Long movieId){
         return rentedMovieService.countRentedMoviesByMovieId(movieId);
     }
+    @DeleteMapping(value = "delete")
+    public void deleteRentedMovie(@RequestParam Long rentedMovieId){
+        rentedMovieService.deleteRentedMovie(rentedMovieId);
+    }
 
 
 }

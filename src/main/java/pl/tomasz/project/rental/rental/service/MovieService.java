@@ -3,6 +3,7 @@ package pl.tomasz.project.rental.rental.service;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.internal.util.Contracts;
 import org.springframework.stereotype.Service;
 import pl.tomasz.project.rental.rental.exception.MovieNotFoundException;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class MovieService {
     private MovieMapper movieMapper;
     private MovieRepository movieRepository;
