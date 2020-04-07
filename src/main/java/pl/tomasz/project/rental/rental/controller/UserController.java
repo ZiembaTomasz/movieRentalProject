@@ -15,11 +15,6 @@ import java.util.List;
 public class UserController {
     private UserService userService;
 
-    @PostMapping(value = "addUser")
-    public void addUser(@RequestBody UserDto userDto){
-        userService.addUser(userDto);
-    }
-
     @GetMapping
     public List<UserDto>getAllUsers(){
         return userService.getAllUsers();
@@ -27,6 +22,14 @@ public class UserController {
     @GetMapping(value = "/{userId}")
     public UserDto getUser(@PathVariable Long userId)throws UserNotFoundException {
         return userService.getUserById(userId);
+    }
+    @PostMapping(value = "addUser")
+    public void addUser(@RequestBody UserDto userDto){
+        userService.addUser(userDto);
+    }
+    @PutMapping(value = "/updateUser")
+    public UserDto updateUser(@RequestBody UserDto userDto){
+        return userService.updateUser(userDto);
     }
     @DeleteMapping(value = "deleteUser")
     public void deleteMovie(@RequestParam Long movieId){

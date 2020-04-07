@@ -53,6 +53,15 @@ public class UserServiceTest {
         verify(userRepository, times(1)).save(user);
     }
     @Test
+    public void shouldUpdateUser(){
+        //Given
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        //When
+        UserDto userDto = userService.updateUser(userMapper.mapToUserDto(user));
+        //Then
+        assertEquals("George", userDto.getFirstName());
+    }
+    @Test
     public void shouldGetUserById(){
         //Given
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));

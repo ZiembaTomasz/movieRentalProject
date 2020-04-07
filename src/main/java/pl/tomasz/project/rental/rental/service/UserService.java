@@ -31,6 +31,13 @@ public class UserService {
         User user = userMapper.mapToUser(userDto);
         userRepository.save(user);
     }
+    public UserDto updateUser(UserDto userDto){
+        Contracts.assertNotNull(userDto, "Cannot Save empty User");
+        User user = userMapper.mapToUser(userDto);
+        Contracts.assertNotNull(userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new));
+        userRepository.save(user);
+        return userMapper.mapToUserDto(user);
+    }
     public void deleteUser(Long userId){
         userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         userRepository.deleteById(userId);
