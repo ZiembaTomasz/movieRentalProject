@@ -3,6 +3,7 @@ package pl.tomasz.project.rental.rental.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.validator.internal.util.Contracts;
 import org.springframework.stereotype.Service;
 import pl.tomasz.project.rental.rental.domain.RentedMovie;
 import pl.tomasz.project.rental.rental.domain.RentedMovieDto;
@@ -42,6 +43,13 @@ public class RentedMovieService {
         rentedMovie.setUserId(userId);
         rentedMovie.setDateOfRent(LocalDate.now());
         rentedMoviesRepository.save(rentedMovie);
+    }
+    public RentedMovieDto updateRentedMovie(RentedMovieDto rentedMovieDto){
+        Contracts.assertNotNull(rentedMovieDto.getId(), "Cannot update with no id");
+        RentedMovie rentedMovie = rentedMovieMapper.mapToRentedMovie(rentedMovieDto);
+        Contracts.assertNotNull(rentedMoviesRepository.findById(rentedMovie.getId()).orElseThrow(RentedMovieNotFoundException::new));
+        rentedMoviesRepository.save(rentedMovie);
+        return rentedMovieMapper.mapToRentedMovieDto(rentedMovie);
     }
     public void deleteRentedMovie(Long rentedMovieId){
         RentedMovie rentedMovie = rentedMoviesRepository.findById(rentedMovieId).orElseThrow(RentedMovieNotFoundException::new);
