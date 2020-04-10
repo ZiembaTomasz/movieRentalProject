@@ -89,6 +89,18 @@ public class RentedMovieServiceTest {
         assertEquals(1, result);
     }
     @Test
+    public void shouldUpdateRentedMovie(){
+        LocalDate dateOfRent = LocalDate.of(2014, Month.JANUARY, 1);
+        LocalDate dateOfReturn = LocalDate.of(2014, Month.FEBRUARY, 3);
+        RentedMovie rentedMovie = new RentedMovie(1L, 350L, 8L, dateOfRent, dateOfReturn);
+        when(rentedMoviesRepository.findById(1L)).thenReturn(Optional.of(rentedMovie));
+        RentedMovieDto rentedMovieDto = rentedMovieMapper.mapToRentedMovieDto(rentedMovie);
+        //When
+        rentedMovieService.updateRentedMovie(rentedMovieDto);
+        //Then
+        assertThat(rentedMovieDto.getUserId(), is(350L));
+    }
+    @Test
     public void shoulDeleteRentedMovie(){
         //Given
         LocalDate dateOfRent = LocalDate.of(2014, Month.JANUARY, 1);
