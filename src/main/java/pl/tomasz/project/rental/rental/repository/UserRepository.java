@@ -7,4 +7,5 @@ import java.util.Date;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findUserByAccountNumber(int accountNumber);
+    User findUserByLastName(String name);
 }

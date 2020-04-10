@@ -39,4 +39,8 @@ public class UserController {
     public UserDto getUserByAccountNumber(@PathVariable int accountNumber){
         return userService.getUserByAccountNumber(accountNumber);
     }
+    @GetMapping(value = "/user{lastName}")
+    public UserDto getUserByLastName(@PathVariable String lastName){
+
+    }
 }

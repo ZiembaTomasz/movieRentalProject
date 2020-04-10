@@ -46,5 +46,9 @@ public class UserService {
         User user = userRepository.findUserByAccountNumber(accountNumber);
         return userMapper.mapToUserDto(user);
     }
+    public UserDto getUserByLastName(String name){
+        User user = userRepository.findUserByLastName(name);
+        return userMapper.mapToUserDto(user);
+    }
 
 }
