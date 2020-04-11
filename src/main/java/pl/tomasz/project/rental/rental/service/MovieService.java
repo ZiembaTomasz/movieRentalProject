@@ -72,14 +72,14 @@ public class MovieService {
         Contracts.assertNotNull(movie, "Movie doesnt exist");
         Contracts.assertNotNull(user,"User doesnt exist");
         rentedMovieService.createRentedMovieObject(userId, movieId);
-        return user.getFirstName() + " " + user.getSecondName() + " rented " + movie.getTitle();
+        return user.getFirstName() + " " + user.getLastName() + " rented " + movie.getTitle();
     }
 
     public String returnMovie(Long movieId, Long userId) {
         User user = userRepository.getOne(userId);
         Movie movie = movieRepository.getOne(movieId);
         rentedMovieService.createRentedMovieObject(userId, movieId);
-        return user.getFirstName() + " " + user.getSecondName() + " returned " + movie.getTitle();
+        return user.getFirstName() + " " + user.getLastName() + " returned " + movie.getTitle();
     }
 
     public List<MovieDto> getMoviesByCategorie(String category) {

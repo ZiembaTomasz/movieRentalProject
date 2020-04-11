@@ -42,42 +42,42 @@ public class MovieController {
         movieService.returnMovie(movieId, userId);
     }
 
-    @GetMapping(value = "getMoviesByCategories")
+    @GetMapping(value = "/getMoviesByCategories")
     public List<MovieDto> getMoviesByCategories(@RequestParam String category) {
         return movieService.getMoviesByCategorie(category);
     }
 
-    @GetMapping(value = "getMoviesByYear")
+    @GetMapping(value = "/getMoviesByYear")
     public List<MovieDto> getMoviesByYear(@RequestParam int year) {
         return movieService.getMovieByYear(year);
     }
 
-    @PostMapping(value = "addMovie")
+    @PostMapping(value = "/addMovie")
     public void addMovie(@RequestBody MovieDto movieDto) {
         movieService.addMovie(movieDto);
     }
 
-    @PutMapping(value = "updateMovie")
+    @PutMapping(value = "/updateMovie")
     public MovieDto updateMovie(@RequestBody MovieDto movieDto) throws MovieNotFoundException {
         return movieService.updateMovie(movieDto);
     }
 
-    @GetMapping(value = "getAgeRestriction")
+    @GetMapping(value = "/getAgeRestriction")
     public boolean getAgeRestriction(@RequestParam Long movieId) {
         return movieService.checkAgeRestriction(movieId);
     }
 
-    @GetMapping(value = "searchMoviesByWord")
+    @GetMapping(value = "/searchMoviesByWord")
     public List<MovieDto> searchMoviesByWord(@RequestParam String word) {
         return movieService.findMovieByWord(word);
     }
 
-    @DeleteMapping(value = "deleteMovie")
+    @DeleteMapping(value = "/deleteMovie")
     public void deleteMovie(@RequestParam Long movieId) {
         movieService.deleteMovie(movieId);
     }
 
-    @GetMapping(value = "getRatingOfMovie")
+    @GetMapping(value = "/getRatingOfMovie")
     public double getRating(@RequestParam Long movieId) {
         return movieService.getRating(movieId);
     }

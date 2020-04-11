@@ -25,15 +25,15 @@ public class RentedMovieController {
     public RentedMovieDto getRentedMovie(@RequestParam Long rentedMovieId){
         return rentedMovieService.getRentedMovie(rentedMovieId);
     }
-    @GetMapping(value = "getNumberOfRentedMoviesByUserId")
+    @GetMapping(value = "/getNumberOfRentedMoviesByUserId")
     public int getNumberOfRentedMoviesByUser(@RequestParam Long userId){
        return rentedMovieService.countRentedMoviesByUserId(userId);
     }
-    @GetMapping(value = "getNumberOfRentedMoviesByMovieId")
+    @GetMapping(value = "/getNumberOfRentedMoviesByMovieId")
     public int getNumberOfRentedMoviesByMovie(@RequestParam Long movieId){
         return rentedMovieService.countRentedMoviesByMovieId(movieId);
     }
-    @PutMapping
+    @PutMapping(value = "/updateRentedMovie")
     public RentedMovieDto updateRentedMovie(@RequestBody RentedMovieDto rentedMovieDto){
         return rentedMovieService.updateRentedMovie(rentedMovieDto);
 

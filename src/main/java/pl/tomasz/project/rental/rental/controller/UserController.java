@@ -23,7 +23,7 @@ public class UserController {
     public UserDto getUser(@PathVariable Long userId)throws UserNotFoundException {
         return userService.getUserById(userId);
     }
-    @PostMapping(value = "addUser")
+    @PostMapping(value = "/addUser")
     public void addUser(@RequestBody UserDto userDto){
         userService.addUser(userDto);
     }
@@ -31,16 +31,16 @@ public class UserController {
     public UserDto updateUser(@RequestBody UserDto userDto){
         return userService.updateUser(userDto);
     }
-    @DeleteMapping(value = "deleteUser")
+    @DeleteMapping(value = "/deleteUser")
     public void deleteMovie(@RequestParam Long movieId){
         userService.deleteUser(movieId);
     }
-    @GetMapping(value = "/{accountNumber}")
+    @GetMapping(value = "/user{accountNumber}")
     public UserDto getUserByAccountNumber(@PathVariable int accountNumber){
         return userService.getUserByAccountNumber(accountNumber);
     }
     @GetMapping(value = "/user{lastName}")
     public UserDto getUserByLastName(@PathVariable String lastName){
-
+        return userService.getUserByLastName(lastName);
     }
 }

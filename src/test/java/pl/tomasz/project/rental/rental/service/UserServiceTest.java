@@ -88,4 +88,13 @@ public class UserServiceTest {
         //Then
         assertEquals(12345, userDto.getAccountNumber());
     }
+    @Test
+    public void shouldGetUserByLastName(){
+        //Given
+        when(userRepository.findUserByLastName("Watkinson")).thenReturn(user);
+        //When
+        UserDto userDto = userService.getUserByLastName("Watkinson");
+        //Then
+        assertEquals(userDto.getLastName(), "Watkinson");
+    }
 }
