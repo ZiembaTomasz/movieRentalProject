@@ -18,8 +18,8 @@ import pl.tomasz.project.rental.rental.repository.UserRepository;
 
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -91,7 +91,21 @@ public class MovieServiceTest {
         //|When
         String text = movieService.rentMovie(1L, 1L);
         //Then
-        assertEquals(text, "Jack Sparrow rented Mohawk");
+        assertEquals("Jack Sparrow rented Mohawk", text);
+    }
+    @Test
+    public void shouldGetMovieById(){
+        //Given
+        ArrayList<UserRating> userRatings = new ArrayList<>();
+        User user = new User(1L,"Jack", "Sparrow", 1);
+        Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
+                2018, true, userRatings);
+        when(movieRepository.findById(1l)).thenReturn(Optional.of(movie));
+        //When
+        MovieDto result = movieService.getMovieById(1L);
+        //Then
+        assertThat(result.getId(), is(1L));
+
     }
     @Test
     public void shouldFindMovieByWord(){
