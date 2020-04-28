@@ -20,7 +20,7 @@ import java.util.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MovieServiceTest {
@@ -97,7 +97,6 @@ public class MovieServiceTest {
     public void shouldGetMovieById(){
         //Given
         ArrayList<UserRating> userRatings = new ArrayList<>();
-        User user = new User(1L,"Jack", "Sparrow", 1);
         Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
                 2018, true, userRatings);
         when(movieRepository.findById(1l)).thenReturn(Optional.of(movie));
@@ -136,6 +135,19 @@ public class MovieServiceTest {
         boolean result = movieService.checkAgeRestriction(1L);
         //Then
         assertTrue(result);
+    }
+    @Test
+    public void shouldAddMovie(){
+        //Given
+        ArrayList<UserRating> userRatings = new ArrayList<>();
+        Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
+                2018, true, userRatings);
+        MovieDto movieDto = movieMapper.mapToMovieDto(movie);
+        //When
+        movieService.addMovie(movieDto);
+        //Then
+        verify(movieRepository, times(1)).save(movie);
+
     }
     @Test
     public void shouldUpdateMovie(){
