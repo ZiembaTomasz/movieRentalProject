@@ -137,6 +137,21 @@ public class MovieServiceTest {
         assertTrue(result);
     }
     @Test
+    public void shouldGetRatingOfMovie(){
+        //Given
+        List<UserRating>userRatings = new ArrayList<>();
+        User user = new User(1L,"Jack", "Sparrow", 1);
+        UserRating userRating = new UserRating(1L, 10, user, 1L);
+        userRatings.add(userRating);
+        Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
+                2018, true, userRatings);
+        when(movieRepository.findById(1L)).thenReturn(Optional.of(movie));
+        //When
+        double result = movieService.getRating(1L);
+        //Then
+        assertEquals(10, result, 0.1);
+    }
+    @Test
     public void shouldAddMovie(){
         //Given
         ArrayList<UserRating> userRatings = new ArrayList<>();
@@ -160,6 +175,20 @@ public class MovieServiceTest {
         MovieDto resultMovie = movieService.updateMovie(movieDto);
         //Then
         assertEquals(movieDto, resultMovie);
+    }
+    @Test
+    public void shouldDeleteMovie(){
+        //Given
+        List<UserRating>userRatings = new ArrayList<>();
+        Movie movie = new Movie(1L, "Mohawk", MovieType.NEW_MOVIE, "action",
+                2018, true, userRatings);
+        MovieDto movieDto = movieMapper.mapToMovieDto(movie);
+        when(movieRepository.findById(1L)).thenReturn(Optional.of(movieMapper.mapToMovie(movieDto)));
+        //When
+        movieService.deleteMovie(1L);
+        //Then
+        verify(movieRepository, times(1)).delete(movie);
+
     }
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionGivenNullMovieId(){
