@@ -228,4 +228,18 @@ public class MovieServiceTest {
         //Then
         assertEquals(1, myMovies.size());
     }
+    @Test
+    public void getMovieByMovieType(){
+        //Given
+        Movie movie1 = new Movie(2L, "Mohcak", MovieType.OLD_MOVIE, "horror",
+                1990, false, userRatings);
+        List<Movie>movieList = new ArrayList<>();
+        movieList.add(movie);
+        movieList.add(movie1);
+        when(movieRepository.findAll()).thenReturn(movieList);
+        //When
+        List<MovieDto>movieDtoList = movieService.getMovieByMovieType(MovieType.NEW_MOVIE);
+        //Then
+        assertEquals(1, movieDtoList.size());
+    }
 }

@@ -97,12 +97,19 @@ public class MovieService {
                 .filter(t -> t.getYearOfProduction() == year)
                 .collect(Collectors.toList());
     }
+    public List<MovieDto> getMovieByMovieType(MovieType movieType){
+        List<Movie>movieList = movieRepository.findAll();
+        List<MovieDto>movieDtoList = movieMapper.mapToMovieDtoList(movieList);
+        return movieDtoList.stream()
+                .filter(t->t.getMovieType() == movieType)
+                .collect(Collectors.toList());
+    }
     public void addMovie(MovieDto movieDto){
         Contracts.assertNotNull(movieDto, "Cannot save empty Movie");
         Movie movie = movieMapper.mapToMovie(movieDto);
         movieRepository.save(movie);
     }
-    public MovieDto updateMovie(MovieDto movieDto) throws MovieNotFoundException {
+    public MovieDto updateMovie(MovieDto movieDto){
         Contracts.assertNotNull(movieDto.getId(), "Cannot update with no ID");
         Movie movie = movieMapper.mapToMovie(movieDto);
         Contracts.assertNotNull(movieRepository.findById(movie.getId()).orElseThrow(MovieNotFoundException::new));

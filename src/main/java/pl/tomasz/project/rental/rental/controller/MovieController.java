@@ -51,6 +51,10 @@ public class MovieController {
     public List<MovieDto> getMoviesByYear(@RequestParam int year) {
         return movieService.getMovieByYear(year);
     }
+    @GetMapping(value = "/getMoviesByMovieType")
+    public List<MovieDto> getMoviesByMovieType(@RequestParam MovieType movieType){
+        return movieService.getMovieByMovieType(movieType);
+    }
 
     @PostMapping(value = "/addMovie")
     public void addMovie(@RequestBody MovieDto movieDto) {
